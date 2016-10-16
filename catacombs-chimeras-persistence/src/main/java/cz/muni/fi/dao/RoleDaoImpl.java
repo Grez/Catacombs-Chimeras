@@ -35,6 +35,7 @@ public class RoleDaoImpl implements RoleDao{
     }
 
     public Role findByName(final String name) {
+        notNull(name, "name should not be null");
         try {
             return entityManager
                     .createQuery("select c from Role c where name = :name", Role.class)

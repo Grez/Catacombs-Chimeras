@@ -88,6 +88,14 @@ public class RoleDaoTest extends AbstractTestNGSpringContextTests {
         assertThat(roleDao.findById(role.getId()).getName(), is(equalTo(newName)));
     }
 
+    @Test(dependsOnMethods = "testCreate")
+    public void testFindByName() {
+        final String name = "elf magician";
+        final Role elfMagician = new Role(name);
+        roleDao.create(elfMagician);
+        assertThat(elfMagician, is(equalTo(roleDao.findByName(name))));
+    }
+
     @Test
     public void testFindNonExistentEntity() {
         assertThat(roleDao.findById(0L), is(nullValue()));
@@ -114,5 +122,30 @@ public class RoleDaoTest extends AbstractTestNGSpringContextTests {
         roleDao.create(role);
         role = new Role("elf magician");
         roleDao.create(role);
+    }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void testCreateNull() {
+        roleDao.create(null);
+    }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void testUpdateNull() {
+        roleDao.update(null);
+    }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void testFindByIdNull() {
+        roleDao.findById(null);
+    }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void testFindByNameNull() {
+        roleDao.findByName(null);
+    }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void testDeleteNull() {
+        roleDao.delete(null);
     }
 }

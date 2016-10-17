@@ -1,3 +1,6 @@
+/**
+ * @author Ondřej Benkovský
+ */
 package cz.muni.fi.entity;
 
 import javax.persistence.Column;
@@ -8,7 +11,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 /**
- * @author Ondřej Benkovský
+ * Representation of hero role
  */
 @Entity
 public class Role {

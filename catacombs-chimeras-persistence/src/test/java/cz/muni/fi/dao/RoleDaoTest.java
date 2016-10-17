@@ -1,3 +1,6 @@
+/**
+ * @author Ondřej Benkovský
+ */
 package cz.muni.fi.dao;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -24,9 +27,7 @@ import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
 
-/**
- * @author Ondřej Benkovský
- */
+
 @ContextConfiguration(classes=PersistenceApplicationContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional

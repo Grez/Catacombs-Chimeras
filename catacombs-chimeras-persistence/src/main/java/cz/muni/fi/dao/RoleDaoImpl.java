@@ -1,3 +1,6 @@
+/**
+ * @author Ondřej Benkovský
+ */
 package cz.muni.fi.dao;
 
 import static org.apache.commons.lang3.Validate.notNull;
@@ -10,9 +13,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-/**
- * @author Ondřej Benkovský
- */
+
 @Repository
 public class RoleDaoImpl implements RoleDao{
 

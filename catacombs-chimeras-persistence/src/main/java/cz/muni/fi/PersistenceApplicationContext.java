@@ -1,3 +1,6 @@
+/**
+ * @author Ondřej Benkovský
+ */
 package cz.muni.fi;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
@@ -20,9 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-/**
- * @author Ondřej Benkovský
- */
+
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories

@@ -1,12 +1,12 @@
+/**
+ * @author Ondřej Benkovský
+ */
 package cz.muni.fi.dao;
 
 import cz.muni.fi.entity.Role;
 
 import java.util.List;
 
-/**
- * @author Ondřej Benkovský
- */
 public interface RoleDao {
     /**
      * creates new role
@@ -36,7 +36,7 @@ public interface RoleDao {
 
     /**
      * find all roles
-     * @return
+     * @return list of all roles
      */
     List<Role> findAll();
 

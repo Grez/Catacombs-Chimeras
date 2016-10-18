@@ -16,8 +16,6 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.Database;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
@@ -37,32 +35,19 @@ public class PersistenceApplicationContext {
 
     @Autowired
     @Bean
-    public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+    public JpaTransactionManager transactionManager(final EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
 
     @Autowired
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
-                                                                       LoadTimeWeaver loadTimeWeaver,
-                                                                       HibernateJpaVendorAdapter hibernateJpaVendorAdapter) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(final DataSource dataSource,
+                                                                       final LoadTimeWeaver loadTimeWeaver) {
         LocalContainerEntityManagerFactoryBean jpaFactoryBean = new LocalContainerEntityManagerFactoryBean();
-        jpaFactoryBean.setPersistenceUnitName("default");
-        jpaFactoryBean.setJpaVendorAdapter(hibernateJpaVendorAdapter);
         jpaFactoryBean.setDataSource(dataSource);
         jpaFactoryBean.setLoadTimeWeaver(loadTimeWeaver);
         jpaFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-        jpaFactoryBean.setPackagesToScan("cz.muni.fi.entity");
         return jpaFactoryBean;
-    }
-
-    @Bean
-    public HibernateJpaVendorAdapter hibernateJpaVendorAdapter() {
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setDatabase(Database.DERBY);
-        vendorAdapter.setDatabasePlatform("org.hibernate.dialect.DerbyTenSevenDialect");
-        vendorAdapter.setGenerateDdl(true);
-        return vendorAdapter;
     }
 
     @Bean

@@ -67,6 +67,13 @@ public class Role {
 
         final Role role = (Role) o;
 
+        if (getName() == null) {
+            if (role.getName() != null) {
+                return false;
+            }
+            return  true;
+        }
+
         return getName().equals(role.getName());
     }
 

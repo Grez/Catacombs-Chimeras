@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.Assert.assertThat;
 
-import cz.muni.fi.PersistenceApplicationContext;
+import cz.muni.fi.PersistenceApplicationTestContext;
 import cz.muni.fi.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -28,7 +28,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 
-@ContextConfiguration(classes=PersistenceApplicationContext.class)
+@ContextConfiguration(classes=PersistenceApplicationTestContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
 public class RoleDaoTest extends AbstractTestNGSpringContextTests {

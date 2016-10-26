@@ -1,20 +1,20 @@
 /**
- * @author Ondřej Benkovský
+ * @author Tom Bartoň
  */
 package cz.muni.fi.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.apache.commons.lang3.Validate;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import static org.apache.commons.lang3.Validate.isTrue;
+
 /**
- * Representation of hero role
+ * Representation of Hero
  */
 @Entity
-public class Role {
+public class Hero {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,13 +24,18 @@ public class Role {
     @Column(nullable = false, unique = true)
     private String name;
 
-    private String description;
+    @NotNull
+    private Long experience = 0L;
 
-    public Role() {
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(nullable = false)
+    private Role role;
+
+    public Hero() {
 
     }
 
-    public Role(final String name) {
+    public Hero(final String name) {
         this.name = name;
     }
 
@@ -50,12 +55,21 @@ public class Role {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public Long getExperience() {
+        return experience;
     }
 
-    public void setDescription(final String description) {
-        this.description = description;
+    public void setExperience(final Long newExperience) {
+        isTrue(newExperience >= 0, "You can't set negative experience");
+        this.experience = newExperience;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
@@ -64,17 +78,17 @@ public class Role {
             return true;
         }
 
-        if (!(o instanceof Role)) {
+        if (!(o instanceof Hero)) {
             return false;
         }
 
-        final Role role = (Role) o;
+        final Hero hero = (Hero) o;
 
         if (getName() == null) {
-            return role.getName() == null;
+            return hero.getName() == null;
         }
 
-        return getName().equals(role.getName());
+        return getName().equals(hero.getName());
     }
 
     @Override

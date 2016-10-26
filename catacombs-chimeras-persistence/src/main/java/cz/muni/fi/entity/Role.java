@@ -60,18 +60,18 @@ public class Role {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof Role))
+        }
+
+        if (!(o instanceof Role)) {
             return false;
+        }
 
         final Role role = (Role) o;
 
         if (getName() == null) {
-            if (role.getName() != null) {
-                return false;
-            }
-            return  true;
+            return role.getName() == null;
         }
 
         return getName().equals(role.getName());

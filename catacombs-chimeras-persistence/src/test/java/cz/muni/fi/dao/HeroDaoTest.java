@@ -60,7 +60,6 @@ public class HeroDaoTest extends AbstractTestNGSpringContextTests {
     @Test(dependsOnMethods = "testCreate")
     public void testDelete() throws Exception {
         final Hero hero = new Hero("Mario Luigi Quattro Formaggi");
-//        hero.addRole(new Role("Italian Plumber"));
         heroDao.create(hero);
         heroDao.delete(hero);
         final List<Hero> resultList = entityManager.createQuery("select h from Hero h", Hero.class).getResultList();
@@ -70,7 +69,6 @@ public class HeroDaoTest extends AbstractTestNGSpringContextTests {
     @Test(dependsOnMethods = "testCreate")
     public void testFindById() throws Exception {
         final Hero hero = new Hero("Mario Luigi Quattro Formaggi");
-//        hero.addRole(new Role("Italian Plumber"));
         heroDao.create(hero);
         Hero foundHero = heroDao.findById(hero.getId());
         Assert.assertThat(hero, is(equalTo(foundHero)));
@@ -111,7 +109,6 @@ public class HeroDaoTest extends AbstractTestNGSpringContextTests {
     public void testFindByName() {
         final String name = "Mario";
         final Hero mario = new Hero(name);
-//        mario.addRole(new Role("Italian Plumber"));
         heroDao.create(mario);
         Assert.assertThat(heroDao.findByName(name), is(equalTo(mario)));
     }
@@ -139,7 +136,6 @@ public class HeroDaoTest extends AbstractTestNGSpringContextTests {
     @Test(dependsOnMethods = "testCreate", expectedExceptions = DataAccessException.class)
     public void testCreateEntityUniqueName() {
         Hero hero = new Hero("Mario");
-//        hero.addRole(new Role("Italian Plumber"));
         heroDao.create(hero);
         hero = new Hero("Mario");
         heroDao.create(hero);

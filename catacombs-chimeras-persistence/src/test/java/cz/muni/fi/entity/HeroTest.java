@@ -47,16 +47,11 @@ public class HeroTest extends TestCase {
         final String roleName = "Italian Plumber";
         final Role role = new Role(roleName);
         hero.addRole(role);
-//        Iterator<Role> roles = hero.getRoles().iterator();
-//        Assert.assertEquals(roles.next().getName(), roleName);
         Assert.assertTrue(hero.getRoles().contains(role));
 
         final String roleName2 = "Luigi's brother";
         final Role role2 = new Role(roleName2);
         hero.addRole(role2);
-//        Iterator<Role> roles2 = hero.getRoles().iterator();
-//        roles2.next();
-//        Assert.assertEquals(roles2.next().getName(), roleName2);
         Assert.assertTrue(hero.getRoles().containsAll(new HashSet<Role>(Arrays.asList(role, role2))));
     }
 

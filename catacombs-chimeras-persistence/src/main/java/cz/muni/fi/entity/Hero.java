@@ -8,6 +8,10 @@ import org.apache.commons.lang3.Validate;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.apache.commons.lang3.Validate.isTrue;
 
 /**
@@ -27,9 +31,8 @@ public class Hero {
     @NotNull
     private Long experience = 0L;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false)
-    private Role role;
+    @ManyToMany
+    private Set<Role> roles = new HashSet<Role>;
 
     public Hero() {
 
@@ -64,12 +67,12 @@ public class Hero {
         this.experience = newExperience;
     }
 
-    public Role getRole() {
-        return role;
+    public void addRole(Role role) {
+        this.roles.add(role);
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public Set<Role> getRoles() {
+        return Collections.unmodifiableSet(roles);
     }
 
     @Override

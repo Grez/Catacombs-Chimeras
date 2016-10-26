@@ -33,6 +33,9 @@ public class Hero {
 
     @ManyToMany
     private Set<Role> roles = new HashSet<Role>();
+    
+    @ManyToOne
+    private Troop troop;
 
     public Hero() {
 

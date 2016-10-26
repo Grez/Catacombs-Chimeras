@@ -3,39 +3,13 @@
  */
 package cz.muni.fi.entity;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.nullValue;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.junit.Assert.assertThat;
-
-import cz.muni.fi.PersistenceApplicationTestContext;
-import cz.muni.fi.entity.Hero;
-import cz.muni.fi.entity.Role;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Iterator;
-import junit.framework.TestCase;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.validation.ConstraintViolationException;
-import java.util.List;
-import java.util.Set;
 
-
-public class HeroTest extends TestCase {
+public class HeroTest {
 
     @Test
     public void testName() {

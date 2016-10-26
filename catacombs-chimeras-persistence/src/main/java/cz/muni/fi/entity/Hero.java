@@ -32,7 +32,7 @@ public class Hero {
     private Long experience = 0L;
 
     @ManyToMany
-    private Set<Role> roles = new HashSet<Role>;
+    private Set<Role> roles = new HashSet<Role>();
 
     public Hero() {
 

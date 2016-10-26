@@ -1,5 +1,6 @@
 package cz.muni.fi.entity;
 
+import java.util.Collections;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -74,7 +75,7 @@ public class Troop {
     }
     
     public Set<Hero> getHeroes() {
-        return heroes;
+        return Collections.unmodifiableSet(heroes);
     }
     
     public void setHeroes(Set<Hero> heroes) {

@@ -31,17 +31,11 @@ public class Hero {
     @NotNull
     private Long experience = 0L;
 
-<<<<<<< HEAD
     @ManyToMany
     private Set<Role> roles = new HashSet<Role>();
-=======
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false)
-    private Role role;
     
     @ManyToOne
     private Troop troop;
->>>>>>> join ManyToOne from Hero to Troop
 
     public Hero() {
 

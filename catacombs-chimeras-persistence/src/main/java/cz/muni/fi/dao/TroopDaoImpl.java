@@ -1,3 +1,7 @@
+/**
+ *
+ * @author David Osička
+ */
 package cz.muni.fi.dao;
 
 import cz.muni.fi.entity.Troop;
@@ -9,11 +13,6 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.apache.commons.lang3.Validate;
 
-
-/**
- *
- * @author David Osička
- */
 
 @Repository
 public class TroopDaoImpl implements TroopDao {

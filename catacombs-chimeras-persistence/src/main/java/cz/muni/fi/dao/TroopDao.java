@@ -1,13 +1,14 @@
+/**
+ *
+ * @author David Osička
+ */
 package cz.muni.fi.dao;
 
 import cz.muni.fi.entity.Troop;
 
 import java.util.List;
 
-/**
- *
- * @author David Osička
- */
+
 public interface TroopDao {
     /**
      * Creates new entity of Troop in data layer

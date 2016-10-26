@@ -1,3 +1,7 @@
+/**
+ *
+ * @author David Osička
+ */
 package cz.muni.fi.entity;
 
 import java.util.Collections;
@@ -10,10 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-/**
- *
- * @author David Osička
- */
+
 @Entity
 public class Troop {
     

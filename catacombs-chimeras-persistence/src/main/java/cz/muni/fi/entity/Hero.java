@@ -78,6 +78,14 @@ public class Hero {
         return Collections.unmodifiableSet(roles);
     }
 
+    public void setTroop(Troop troop) {
+        this.troop = troop;
+    }
+
+    public Troop getTroop() {
+        return troop;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {

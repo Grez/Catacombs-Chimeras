@@ -46,7 +46,7 @@ public class TroopDaoImpl implements TroopDao {
         Validate.notNull(name, "name must not be null");
         try {
             return entityManager
-                    .createQuery("SELECT c FROM Troop c WHERE name = :name", Troop.class)
+                    .createQuery("SELECT t FROM Troop t WHERE name = :name", Troop.class)
                     .setParameter(":name", name)
                     .getSingleResult();
         } catch(NoResultException e) {
@@ -55,7 +55,7 @@ public class TroopDaoImpl implements TroopDao {
     }
     
     public List<Troop> findAll() {
-        return entityManager.createQuery("SELECT c FROM Troop c", Troop.class).getResultList();
+        return entityManager.createQuery("SELECT t FROM Troop t", Troop.class).getResultList();
     }
 
 }

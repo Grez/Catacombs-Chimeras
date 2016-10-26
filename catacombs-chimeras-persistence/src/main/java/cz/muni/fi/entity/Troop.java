@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -29,8 +30,8 @@ public class Troop {
     @Column(nullable = false)
     private Long amountOfMoney;
     
-//    @OneToMany(mappedBy = att_name)
-//    private Set<Hero> heroes;
+    @OneToMany(mappedBy = "troop")
+    private Set<Hero> heroes;
     
     public Troop() {
         
@@ -72,21 +73,13 @@ public class Troop {
         this.amountOfMoney = amountOfMoney;
     }
     
-//    public Set<Hero> getHeroes() {
-//        return heroes;
-//    }
-//    
-//    public void setHeroes(Set<Hero> heroes) {
-//        this.heroes = heroes;
-//    }
-//    
-//    public bool containsHero(Hero hero) {
-//        return heroes.equals(hero);
-//    }
-//    
-//    public void addHero(Hero hero) {
-//        heroes.add(hero);
-//    }
+    public Set<Hero> getHeroes() {
+        return heroes;
+    }
+    
+    public void setHeroes(Set<Hero> heroes) {
+        this.heroes = heroes;
+    }
     
     @Override
     public boolean equals(final Object obj) {

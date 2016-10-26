@@ -13,6 +13,7 @@ import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import cz.muni.fi.PersistenceApplicationTestContext;
 import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Role;
+import cz.muni.fi.entity.Troop;
 import java.util.Arrays;
 import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,14 +48,20 @@ public class HeroDaoTest extends AbstractTestNGSpringContextTests {
         final String heroName = "Mario Luigi Quattro Formaggi";
         final Hero hero = new Hero();
         final Role role = new Role("Italian Plumber");
+        entityManager.persist(role);
+        final Troop troop = new Troop("Italian army");
+        entityManager.persist(troop);
+        
         hero.setName(heroName);
         hero.addRole(role);
+        hero.setTroop(troop);
         heroDao.create(hero);
+        
         final List<Hero> resultList = entityManager.createQuery("select h from Hero h", Hero.class).getResultList();
         Assert.assertThat(resultList, hasSize(1));
         Assert.assertThat(resultList.get(0).getName(), is(equalTo(heroName)));
         Assert.assertTrue(resultList.get(0).getRoles().contains(role));
-        
+        Assert.assertThat(resultList.get(0).getTroop(), is(equalTo(troop)));
     }
 
     @Test(dependsOnMethods = "testCreate")
@@ -94,15 +101,23 @@ public class HeroDaoTest extends AbstractTestNGSpringContextTests {
         entityManager.persist(role1);
         final Role role2 = new Role("German Plumber");
         entityManager.persist(role2);
+        final Troop newTroop = new Troop("German army");
+        entityManager.persist(newTroop);
+        
         Hero hero = new Hero("No name plumber");
         hero.addRole(role1);
+        hero.setTroop(new Troop("Italian army"));
         heroDao.create(hero);
+        
         hero.setName(newName);
         hero.addRole(role2);
+        hero.setTroop(newTroop);
         heroDao.update(hero);
+        
         Hero foundHero = heroDao.findById(hero.getId());
         Assert.assertThat(foundHero.getName(), is(equalTo(newName)));
         Assert.assertTrue(foundHero.getRoles().containsAll(new HashSet<Role>(Arrays.asList(role1, role2))));
+        Assert.assertEquals(hero.getTroop(), newTroop);
     }
 
     @Test(dependsOnMethods = "testCreate")

@@ -93,7 +93,9 @@ public class HeroDaoTest extends AbstractTestNGSpringContextTests {
     public void testUpdate() throws Exception {
         final String newName = "Mario";
         final Role role1 = new Role("Italian Plumber");
+        entityManager.persist(role1);
         final Role role2 = new Role("German Plumber");
+        entityManager.persist(role2);
         Hero hero = new Hero("No name plumber");
         hero.addRole(role1);
         heroDao.create(hero);

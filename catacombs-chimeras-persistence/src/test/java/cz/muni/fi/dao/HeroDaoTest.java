@@ -145,56 +145,26 @@ public class HeroDaoTest extends AbstractTestNGSpringContextTests {
 
     @Test(expectedExceptions = NullPointerException.class)
     public void testCreateNull() {
-        boolean assertValue = false;
-        try {
-            heroDao.create(null);
-        } catch(IllegalArgumentException e) {
-            assertValue = true;
-        }
-        Assert.assertTrue(assertValue);
+        heroDao.create(null);
     }
 
     @Test(expectedExceptions = NullPointerException.class)
     public void testUpdateNull() {
-        boolean assertValue = false;
-        try {
-            heroDao.update(null);
-        } catch(IllegalArgumentException e) {
-            assertValue = true;
-        }
-        Assert.assertTrue(assertValue);
+        heroDao.update(null);
     }
 
     @Test(expectedExceptions = NullPointerException.class)
     public void testFindByIdNull() {
-        boolean assertValue = false;
-        try {
-            heroDao.findById(null);
-        } catch(IllegalArgumentException e) {
-            assertValue = true;
-        }
-        Assert.assertTrue(assertValue);
+        heroDao.findById(null);
     }
 
     @Test(expectedExceptions = NullPointerException.class)
     public void testFindByNameNull() {
-        boolean assertValue = false;
-        try {
-            heroDao.findByName(null);
-        } catch(IllegalArgumentException e) {
-            assertValue = true;
-        }
-        Assert.assertTrue(assertValue);
+        heroDao.findByName(null);
     }
 
     @Test(expectedExceptions = NullPointerException.class)
     public void testDeleteNull() {
-        boolean assertValue = false;
-        try {
-            heroDao.delete(null);
-        } catch(IllegalArgumentException e) {
-            assertValue = true;
-        }
-        Assert.assertTrue(assertValue);
+        heroDao.delete(null);
     }
 }

@@ -70,8 +70,12 @@ public class Hero {
         this.experience = newExperience;
     }
 
-    public void addRole(Role role) {
+    public void addRole(final Role role) {
         this.roles.add(role);
+    }
+
+    public void removeRole(final Role role) {
+        this.roles.remove(role);
     }
 
     public Set<Role> getRoles() {

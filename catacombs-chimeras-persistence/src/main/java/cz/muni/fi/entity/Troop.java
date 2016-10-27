@@ -5,6 +5,7 @@
 package cz.muni.fi.entity;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +34,7 @@ public class Troop {
     private Long amountOfMoney;
     
     @OneToMany(mappedBy = "troop")
-    private Set<Hero> heroes;
+    private Set<Hero> heroes = new HashSet<Hero>();
     
     public Troop() {
         
@@ -79,8 +80,16 @@ public class Troop {
         return Collections.unmodifiableSet(heroes);
     }
     
-    public void setHeroes(Set<Hero> heroes) {
+    public void setHeroes(final Set<Hero> heroes) {
         this.heroes = heroes;
+    }
+
+    public void addHero(final Hero hero) {
+        heroes.add(hero);
+    }
+
+    public void removeHero(final Hero hero) {
+        heroes.remove(hero);
     }
     
     @Override

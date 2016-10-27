@@ -29,7 +29,7 @@ public class Troop {
     @Column(nullable = true)
     private String mission;
     
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Long amountOfMoney;
     
     @OneToMany(mappedBy = "troop")

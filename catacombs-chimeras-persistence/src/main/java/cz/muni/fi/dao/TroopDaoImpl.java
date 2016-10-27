@@ -28,7 +28,7 @@ public class TroopDaoImpl implements TroopDao {
     
     public void update(final Troop instance) {
         Validate.notNull(instance, "instance must not be null");
-        entityManager.remove(instance);
+        entityManager.merge(instance);
     }
     
     public void delete(final Troop instance) {
@@ -46,7 +46,7 @@ public class TroopDaoImpl implements TroopDao {
         try {
             return entityManager
                     .createQuery("SELECT t FROM Troop t WHERE name = :name", Troop.class)
-                    .setParameter(":name", name)
+                    .setParameter("name", name)
                     .getSingleResult();
         } catch(NoResultException e) {
             return null;

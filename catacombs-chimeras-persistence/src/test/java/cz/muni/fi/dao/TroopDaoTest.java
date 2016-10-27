@@ -1,3 +1,6 @@
+/**
+ * @author Ondřej Benkovský
+ */
 package cz.muni.fi.dao;
 
 import static org.hamcrest.CoreMatchers.equalTo;

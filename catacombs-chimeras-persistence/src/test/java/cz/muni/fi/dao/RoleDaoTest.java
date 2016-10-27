@@ -1,5 +1,5 @@
 /**
- * @author Ondřej Benkovský
+ * @author Tom Bartoň
  */
 package cz.muni.fi.dao;
 

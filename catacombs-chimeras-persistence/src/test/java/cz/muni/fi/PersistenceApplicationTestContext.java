@@ -1,3 +1,6 @@
+/**
+ * @author Ondřej Benkovský
+ */
 package cz.muni.fi;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;

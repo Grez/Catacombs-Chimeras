@@ -3,8 +3,6 @@
  */
 package cz.muni.fi.entity;
 
-import org.apache.commons.lang3.Validate;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 

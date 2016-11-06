@@ -35,7 +35,7 @@ import org.junit.Assert;
 @ContextConfiguration(classes=PersistenceApplicationTestContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class HeroDaoTest extends AbstractTestNGSpringContextTests {
+public class HeroDaoImplTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private HeroDao heroDao;

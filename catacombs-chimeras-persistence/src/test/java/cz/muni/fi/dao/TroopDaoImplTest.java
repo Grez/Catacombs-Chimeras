@@ -34,7 +34,7 @@ import java.util.List;
 @ContextConfiguration(classes=PersistenceApplicationTestContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class TroopDaoTest extends AbstractTestNGSpringContextTests {
+public class TroopDaoImplTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private TroopDao troopDao;

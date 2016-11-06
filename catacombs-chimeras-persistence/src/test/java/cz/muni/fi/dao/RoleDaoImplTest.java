@@ -31,7 +31,7 @@ import java.util.List;
 @ContextConfiguration(classes=PersistenceApplicationTestContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class RoleDaoTest extends AbstractTestNGSpringContextTests {
+public class RoleDaoImplTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private RoleDao roleDao;

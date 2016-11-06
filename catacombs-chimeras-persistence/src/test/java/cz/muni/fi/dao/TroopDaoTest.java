@@ -136,30 +136,24 @@ public class TroopDaoTest extends AbstractTestNGSpringContextTests {
         troopDao.create(alfaTroop);
         Troop betaTroop = new Troop("alfa");
         troopDao.create(betaTroop);
-
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = DataAccessException.class)
     public void testCreateNull() {
         troopDao.create(null);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = DataAccessException.class)
     public void testUpdateNull() {
         troopDao.update(null);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = DataAccessException.class)
     public void testFindByIdNull() {
         troopDao.findById(null);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
-    public void testFindByNameNull() {
-        troopDao.findByName(null);
-    }
-
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = DataAccessException.class)
     public void testDeleteNull() {
         troopDao.delete(null);
     }

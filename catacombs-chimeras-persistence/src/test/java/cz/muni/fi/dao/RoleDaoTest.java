@@ -125,27 +125,22 @@ public class RoleDaoTest extends AbstractTestNGSpringContextTests {
         roleDao.create(role);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = DataAccessException.class)
     public void testCreateNull() {
         roleDao.create(null);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = DataAccessException.class)
     public void testUpdateNull() {
         roleDao.update(null);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = DataAccessException.class)
     public void testFindByIdNull() {
         roleDao.findById(null);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
-    public void testFindByNameNull() {
-        roleDao.findByName(null);
-    }
-
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = DataAccessException.class)
     public void testDeleteNull() {
         roleDao.delete(null);
     }

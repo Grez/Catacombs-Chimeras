@@ -91,33 +91,31 @@ public class Troop {
     public void removeHero(final Hero hero) {
         heroes.remove(hero);
     }
-    
+
     @Override
     public boolean equals(final Object obj) {
-        if(obj == null) {
-            return false;
-        }
-        if(!(obj instanceof Troop)) {
-            return false;
-        }
-        if(obj == this) {
+        if (this == obj) {
             return true;
         }
-        
+
+        if (!(obj instanceof Troop)) {
+            return false;
+        }
+
         final Troop tmp = (Troop) obj;
-        
-        if(name == null && tmp.name == null) {
-            return true;
+
+        if (getName() == null) {
+            return tmp.getName() == null;
         }
-        
-        return name.equals(tmp.name);
+
+        return getName().equals(tmp.getName());
     }
     
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + (name == null ? 0 : name.hashCode());
+        result = prime * result + (getName() == null ? 0 : getName().hashCode());
         return result;
     }
 }

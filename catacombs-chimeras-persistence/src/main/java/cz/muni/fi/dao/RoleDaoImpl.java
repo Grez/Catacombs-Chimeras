@@ -3,8 +3,6 @@
  */
 package cz.muni.fi.dao;
 
-import static org.apache.commons.lang3.Validate.notNull;
-
 import cz.muni.fi.entity.Role;
 import org.springframework.stereotype.Repository;
 
@@ -21,22 +19,18 @@ public class RoleDaoImpl implements RoleDao{
     private EntityManager entityManager;
 
     public void create(final Role role) {
-        notNull(role, "role should not be null");
         entityManager.persist(role);
     }
 
     public void delete(final Role role) {
-        notNull(role, "role should not be null");
         entityManager.remove(role);
     }
 
     public Role findById(final Long id) {
-        notNull(id, "id should not be null");
         return entityManager.find(Role.class, id);
     }
 
     public Role findByName(final String name) {
-        notNull(name, "name should not be null");
         try {
             return entityManager
                     .createQuery("select c from Role c where name = :name", Role.class)
@@ -52,7 +46,6 @@ public class RoleDaoImpl implements RoleDao{
     }
 
     public void update(final Role role) {
-        notNull(role, "role should not be null");
         entityManager.merge(role);
     }
 }

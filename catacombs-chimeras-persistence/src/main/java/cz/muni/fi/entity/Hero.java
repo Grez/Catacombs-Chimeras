@@ -4,13 +4,12 @@
 package cz.muni.fi.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
-import static org.apache.commons.lang3.Validate.isTrue;
 
 /**
  * Representation of Hero
@@ -27,6 +26,7 @@ public class Hero {
     private String name;
 
     @NotNull
+    @Min(0L)
     private Long experience = 0L;
 
     @ManyToMany
@@ -64,7 +64,6 @@ public class Hero {
     }
 
     public void setExperience(final Long newExperience) {
-        isTrue(newExperience >= 0, "You can't set negative experience");
         this.experience = newExperience;
     }
 

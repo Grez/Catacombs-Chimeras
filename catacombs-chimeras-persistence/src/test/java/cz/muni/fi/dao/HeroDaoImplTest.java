@@ -35,7 +35,7 @@ import org.junit.Assert;
 @ContextConfiguration(classes=PersistenceApplicationTestContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
-public class HeroDaoTest extends AbstractTestNGSpringContextTests {
+public class HeroDaoImplTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private HeroDao heroDao;
@@ -156,28 +156,30 @@ public class HeroDaoTest extends AbstractTestNGSpringContextTests {
         heroDao.create(hero);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = DataAccessException.class)
     public void testCreateNull() {
         heroDao.create(null);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = DataAccessException.class)
     public void testUpdateNull() {
         heroDao.update(null);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = DataAccessException.class)
     public void testFindByIdNull() {
         heroDao.findById(null);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
-    public void testFindByNameNull() {
-        heroDao.findByName(null);
-    }
-
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = DataAccessException.class)
     public void testDeleteNull() {
         heroDao.delete(null);
+    }
+
+    @Test(expectedExceptions = ConstraintViolationException.class)
+    public void testCreateHeroWithNegativeExperience() {
+        Hero hero = new Hero("Batman");
+        hero.setExperience(-1L);
+        heroDao.create(hero);
     }
 }

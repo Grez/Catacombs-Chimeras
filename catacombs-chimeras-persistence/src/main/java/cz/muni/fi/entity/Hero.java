@@ -30,7 +30,7 @@ public class Hero {
     private Long experience = 0L;
 
     @ManyToMany
-    private Set<Role> roles = new HashSet<Role>();
+    private Set<Role> roles = new HashSet<>();
     
     @ManyToOne
     private Troop troop;
@@ -69,10 +69,12 @@ public class Hero {
 
     public void addRole(final Role role) {
         this.roles.add(role);
+        role.addHero(this);
     }
 
     public void removeRole(final Role role) {
         this.roles.remove(role);
+        role.removeHero(this);
     }
 
     public Set<Role> getRoles() {

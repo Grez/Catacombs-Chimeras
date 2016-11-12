@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
@@ -27,14 +28,12 @@ public class Troop {
     @Column(nullable = false, unique = true)
     private String name;
     
-    @Column(nullable = true)
     private String mission;
     
-    @Column(nullable = true)
     private Long amountOfMoney;
-    
+
     @OneToMany(mappedBy = "troop")
-    private Set<Hero> heroes = new HashSet<Hero>();
+    private Set<Hero> heroes = new HashSet<>();
     
     public Troop() {
         
@@ -86,10 +85,12 @@ public class Troop {
 
     public void addHero(final Hero hero) {
         heroes.add(hero);
+        hero.setTroop(this);
     }
 
     public void removeHero(final Hero hero) {
         heroes.remove(hero);
+        hero.setTroop(null);
     }
 
     @Override

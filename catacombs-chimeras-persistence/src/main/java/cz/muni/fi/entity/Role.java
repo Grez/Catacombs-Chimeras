@@ -5,6 +5,8 @@ package cz.muni.fi.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Representation of hero role
@@ -21,6 +23,9 @@ public class Role {
     private String name;
 
     private String description;
+
+    @ManyToMany(mappedBy = "roles")
+    private Set<Hero> heroes = new HashSet<>();
 
     public Role() {
 
@@ -52,6 +57,22 @@ public class Role {
 
     public void setDescription(final String description) {
         this.description = description;
+    }
+
+    public Set<Hero> getHeroes() {
+        return heroes;
+    }
+
+    public void setHeroes(final Set<Hero> heroes) {
+        this.heroes = heroes;
+    }
+
+    public void addHero(final Hero hero) {
+        this.heroes.add(hero);
+    }
+
+    public void removeHero(final Hero hero) {
+        this.heroes.remove(hero);
     }
 
     @Override

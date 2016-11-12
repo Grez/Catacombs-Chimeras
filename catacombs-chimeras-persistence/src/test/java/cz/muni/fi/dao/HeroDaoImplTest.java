@@ -5,6 +5,7 @@ package cz.muni.fi.dao;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.nullValue;
@@ -39,6 +40,9 @@ public class HeroDaoImplTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private HeroDao heroDao;
+
+    @Autowired
+    private RoleDao roleDao;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -181,5 +185,30 @@ public class HeroDaoImplTest extends AbstractTestNGSpringContextTests {
         Hero hero = new Hero("Batman");
         hero.setExperience(-1L);
         heroDao.create(hero);
+    }
+
+    @Test(dependsOnMethods = "testCreate")
+    public void testAddRole() {
+        Hero hero = new Hero("Superman");
+        Role role = new Role("Flying Hero");
+        roleDao.create(role);
+        heroDao.create(hero);
+        hero.addRole(role);
+
+        Assert.assertThat(heroDao.findById(hero.getId()).getRoles(), containsInAnyOrder(role));
+        Assert.assertThat(roleDao.findById(role.getId()).getHeroes(), containsInAnyOrder(hero));
+    }
+
+    @Test(dependsOnMethods = "testCreate")
+    public void testRemoveRole() {
+        Hero hero = new Hero("Superman");
+        Role role = new Role("Flying Hero");
+        roleDao.create(role);
+        heroDao.create(hero);
+        hero.addRole(role);
+        hero.removeRole(role);
+
+        Assert.assertThat(heroDao.findById(hero.getId()).getRoles(), not(containsInAnyOrder(role)));
+        Assert.assertThat(roleDao.findById(role.getId()).getHeroes(), not(containsInAnyOrder(hero)));
     }
 }

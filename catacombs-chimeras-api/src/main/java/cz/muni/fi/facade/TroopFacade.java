@@ -1,52 +1,51 @@
 /**
  * @author Tom Bartoň
  */
-package cz.muni.fi.service;
+package cz.muni.fi.facade;
 
+import cz.muni.fi.dto.TroopCreateDTO;
 import cz.muni.fi.dto.TroopDTO;
-import cz.muni.fi.entity.Troop;
 
 import java.util.List;
 
-public interface TroopService {
-
+public interface TroopFacade {
     /**
-     * find troop by ID
-     * @param id of troop
+     * find troop by id
+     * @param id ID of troop
      * @return troop
      */
-    Troop findTroopById(final Long id);
+    TroopDTO findTroopById(final Long id);
 
     /**
      * find troop by name
      * @param name of troop
      * @return troop
      */
-    Troop findTroopByName(final String name);
+    TroopDTO findTroopByName(final String name);
 
     /**
      * find all troops
      * @return list of all troops
      */
-    List<Troop> findAllTroops();
+    List<TroopDTO> findAllTroops();
 
     /**
      * create new troop
      * @param troop to create
      */
-    void createTroop(final Troop troop);
+    void createTroop(final TroopCreateDTO troop);
 
     /**
      * update troop
      * @param troop to update
      */
-    void updateTroop(final Troop troop);
+    void updateTroop(final TroopDTO troop);
 
     /**
      * remove troop specified by id
-     * @param id of troop to delete
+     * @param troopId of troop to delete
      */
-    void removeTroop(final Long id);
+    void removeTroop(final Long troopId);
 
     /**
      * get all heroes associated with troop

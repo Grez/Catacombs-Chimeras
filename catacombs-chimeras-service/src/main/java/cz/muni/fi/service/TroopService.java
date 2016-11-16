@@ -3,7 +3,7 @@
  */
 package cz.muni.fi.service;
 
-import cz.muni.fi.dto.TroopDTO;
+import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Troop;
 
 import java.util.List;
@@ -50,8 +50,8 @@ public interface TroopService {
 
     /**
      * get all heroes associated with troop
-     * @param troopId of troopId
-     * @return list of troop roles
+     * @param id of troopId
+     * @return list of troop heroes
      */
-    List<TroopDTO> getTroopHeroes(final Long troopId);
+    List<Hero> getTroopHeroes(final Long id);
 }

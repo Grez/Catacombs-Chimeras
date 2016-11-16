@@ -4,6 +4,7 @@
 package cz.muni.fi.dao;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
@@ -16,6 +17,7 @@ import cz.muni.fi.PersistenceApplicationTestContext;
 import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Troop;
 import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
@@ -38,6 +40,9 @@ public class TroopDaoImplTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private TroopDao troopDao;
+
+    @Autowired
+    private HeroDao heroDao;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -156,5 +161,32 @@ public class TroopDaoImplTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = DataAccessException.class)
     public void testDeleteNull() {
         troopDao.delete(null);
+    }
+
+    @Test(dependsOnMethods = "testCreate")
+    public void testAddTroop() {
+        Hero hero = new Hero("Iron man");
+        Troop troop = new Troop("Avengers");
+        heroDao.create(hero);
+        troopDao.create(troop);
+
+        troop.addHero(hero);
+
+        assertThat(heroDao.findById(hero.getId()).getTroop(), is(equalTo(troop)));
+        assertThat(troopDao.findById(troop.getId()).getHeroes(), containsInAnyOrder(hero));
+    }
+
+    @Test(dependsOnMethods = "testAddTroop")
+    public void testRemoveTroop() {
+        Hero hero = new Hero("Iron man");
+        Troop troop = new Troop("Avengers");
+        heroDao.create(hero);
+        troopDao.create(troop);
+        troop.addHero(hero);
+
+        troop.removeHero(hero);
+
+        assertThat(heroDao.findById(hero.getId()).getTroop(), is(nullValue()));
+        assertThat(troopDao.findById(troop.getId()).getHeroes(), not(containsInAnyOrder(hero)));
     }
 }

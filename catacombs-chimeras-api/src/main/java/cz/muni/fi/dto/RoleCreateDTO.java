@@ -1,3 +1,6 @@
+/**
+ * @author David Osička
+ */
 package cz.muni.fi.dto;
 
 import static org.apache.commons.lang3.Validate.notNull;

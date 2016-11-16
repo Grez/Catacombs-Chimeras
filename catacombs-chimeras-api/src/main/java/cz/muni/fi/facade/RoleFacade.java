@@ -1,3 +1,6 @@
+/**
+ * @author David Osička
+ */
 package cz.muni.fi.facade;
 
 import cz.muni.fi.dto.RoleCreateDTO;

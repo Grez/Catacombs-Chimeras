@@ -1,3 +1,6 @@
+/**
+ * @author David Osička
+ */
 package cz.muni.fi.service;
 
 import cz.muni.fi.entity.Role;

@@ -37,7 +37,6 @@ public class RoleCreateDTO {
         final RoleCreateDTO that = (RoleCreateDTO) o;
 
         return name.equals(that.name);
-
     }
 
     @Override

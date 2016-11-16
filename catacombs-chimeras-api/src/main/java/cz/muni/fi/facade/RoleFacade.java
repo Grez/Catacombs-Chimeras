@@ -44,5 +44,4 @@ public interface RoleFacade {
      * @param id of role to delete
      */
     void removeRole(final Long id);
-
 }

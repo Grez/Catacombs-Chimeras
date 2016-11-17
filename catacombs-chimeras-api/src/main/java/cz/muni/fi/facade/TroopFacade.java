@@ -32,8 +32,9 @@ public interface TroopFacade {
     /**
      * create new troop
      * @param troop to create
+     * @return created troop
      */
-    void createTroop(final TroopCreateDTO troop);
+    TroopDTO createTroop(final TroopCreateDTO troop);
 
     /**
      * update troop

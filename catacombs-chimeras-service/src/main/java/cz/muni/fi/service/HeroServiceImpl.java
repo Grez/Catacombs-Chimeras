@@ -57,9 +57,10 @@ public class HeroServiceImpl implements HeroService {
     }
 
     @Override
-    public void createHero(final Hero hero) {
+    public Hero createHero(final Hero hero) {
         notNull(hero);
         heroDao.create(hero);
+        return hero;
     }
 
     @Override

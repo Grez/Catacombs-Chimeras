@@ -32,8 +32,9 @@ public interface RoleService {
     /**
      * create new role
      * @param role to create
+     * @return created role
      */
-    void createRole(final Role role);
+    Role createRole(final Role role);
 
     /**
      * update role

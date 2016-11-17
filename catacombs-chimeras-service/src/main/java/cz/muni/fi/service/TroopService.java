@@ -33,8 +33,9 @@ public interface TroopService {
     /**
      * create new troop
      * @param troop to create
+     * @return created troop
      */
-    void createTroop(final Troop troop);
+    Troop createTroop(final Troop troop);
 
     /**
      * update troop

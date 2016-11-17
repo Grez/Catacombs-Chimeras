@@ -35,8 +35,9 @@ public interface HeroService {
     /**
      * create hero
      * @param hero to create
+     * @return created hero
      */
-    void createHero(final Hero hero);
+    Hero createHero(final Hero hero);
 
     /**
      * update hero

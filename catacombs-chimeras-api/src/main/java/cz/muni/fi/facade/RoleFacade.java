@@ -33,8 +33,9 @@ public interface RoleFacade {
     /**
      * create new role
      * @param role to create
+     * @return created role
      */
-    void createRole(final RoleCreateDTO role);
+    RoleDTO createRole(final RoleCreateDTO role);
 
     /**
      * update role

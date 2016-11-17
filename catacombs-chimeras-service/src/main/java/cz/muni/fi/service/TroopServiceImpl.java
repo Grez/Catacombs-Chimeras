@@ -3,6 +3,7 @@
  */
 package cz.muni.fi.service;
 
+import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
 
 import cz.muni.fi.dao.TroopDao;
@@ -38,7 +39,7 @@ public class TroopServiceImpl implements TroopService {
 
     @Override
     public Troop findTroopByName(final String name) {
-        notNull(name);
+        notEmpty(name);
         Troop troop = troopDao.findByName(name);
         if (troop == null) {
             throw new NotFoundException("Troop with name " + name + " not found");
@@ -52,9 +53,10 @@ public class TroopServiceImpl implements TroopService {
     }
 
     @Override
-    public void createTroop(final Troop troop) {
+    public Troop createTroop(final Troop troop) {
         notNull(troop);
         troopDao.create(troop);
+        return troop;
     }
 
     @Override
@@ -65,6 +67,7 @@ public class TroopServiceImpl implements TroopService {
 
     @Override
     public void removeTroop(final Long id) {
+        notNull(id);
         Troop troop = troopDao.findById(id);
         if (troop == null) {
             throw new NotFoundException("Troop with ID " + id + " not found");
@@ -79,6 +82,6 @@ public class TroopServiceImpl implements TroopService {
         if (troop == null) {
             throw new NotFoundException("Troop with ID " + id + " not found");
         }
-        return new ArrayList<Hero>(troop.getHeroes());
+        return new ArrayList<>(troop.getHeroes());
     }
 }

@@ -3,6 +3,7 @@
  */
 package cz.muni.fi.facade;
 
+import cz.muni.fi.dto.HeroDTO;
 import cz.muni.fi.dto.TroopCreateDTO;
 import cz.muni.fi.dto.TroopDTO;
 
@@ -51,7 +52,7 @@ public interface TroopFacade {
     /**
      * get all heroes associated with troop
      * @param troopId of troopId
-     * @return list of troop roles
+     * @return list of troop heroes
      */
-    List<TroopDTO> getTroopHeroes(final Long troopId);
+    List<HeroDTO> getTroopHeroes(final Long troopId);
 }

@@ -110,7 +110,8 @@ public class HeroFacadeImpl implements HeroFacade {
                 hero.getId(),
                 hero.getName(),
                 hero.getExperience(),
-                (hero.getTroop() != null) ? hero.getTroop().getId() : null);
+                (hero.getTroop() != null) ? hero.getTroop().getId() : null
+        );
     }
 
     private RoleDTO convertToDTO(final Role role) {

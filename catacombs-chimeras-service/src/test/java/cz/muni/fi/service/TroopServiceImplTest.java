@@ -80,7 +80,7 @@ public class TroopServiceImplTest {
     }
 
     @Test
-    public void testFindAllTroopes() throws Exception {
+    public void testFindAllTroops() throws Exception {
         List list = Collections.singletonList(troop);
         when(troopDao.findAll()).thenReturn(list);
 

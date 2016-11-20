@@ -125,17 +125,17 @@ public class TroopFacadeImplTest {
     }
 
     @Test
-    public void testFindAllTroopes() throws Exception {
+    public void testFindAllTroops() throws Exception {
         List list = Collections.singletonList(troop);
         when(troopService.findAllTroops()).thenReturn(list);
 
-        List<TroopDTO> allTroopes = troopFacade.findAllTroops();
+        List<TroopDTO> allTroops = troopFacade.findAllTroops();
 
-        assertThat(allTroopes, hasSize(1));
-        assertThat(allTroopes.get(0).getId(), is(equalTo(TROOP_ID)));
-        assertThat(allTroopes.get(0).getName(), is(equalTo(TROOP_NAME)));
-        assertThat(allTroopes.get(0).getMission(), is(equalTo(TROOP_MISSION)));
-        assertThat(allTroopes.get(0).getAmountOfMoney(), is(equalTo(TROOP_AMOUNT_OF_MONEY)));
+        assertThat(allTroops, hasSize(1));
+        assertThat(allTroops.get(0).getId(), is(equalTo(TROOP_ID)));
+        assertThat(allTroops.get(0).getName(), is(equalTo(TROOP_NAME)));
+        assertThat(allTroops.get(0).getMission(), is(equalTo(TROOP_MISSION)));
+        assertThat(allTroops.get(0).getAmountOfMoney(), is(equalTo(TROOP_AMOUNT_OF_MONEY)));
     }
 
     @Test

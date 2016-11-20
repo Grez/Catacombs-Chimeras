@@ -47,8 +47,8 @@ public class TroopFacadeImpl implements TroopFacade {
 
     @Override
     public List<TroopDTO> findAllTroops() {
-        List<Troop> troopes = troopService.findAllTroops();
-        return troopes.stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<Troop> troops = troopService.findAllTroops();
+        return troops.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override

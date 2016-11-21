@@ -11,6 +11,7 @@ import cz.muni.fi.dto.TroopCreateDTO;
 import cz.muni.fi.dto.TroopDTO;
 import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Troop;
+import cz.muni.fi.exceptions.NotFoundException;
 import cz.muni.fi.service.TroopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,6 +70,13 @@ public class TroopFacadeImpl implements TroopFacade {
     public void removeTroop(final Long id) {
         notNull(id);
         troopService.removeTroop(id);
+    }
+
+    @Override
+    public void addTroopHero(final Long troopId, final Long heroId) {
+        notNull(troopId);
+        notNull(heroId);
+        troopService.addTroopHero(troopId, heroId);
     }
 
     @Override

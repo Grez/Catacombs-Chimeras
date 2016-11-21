@@ -34,8 +34,9 @@ public interface HeroFacade {
     /**
      * create new hero
      * @param hero to create
+     * @return created hero
      */
-    void createHero(final HeroCreateDTO hero);
+    HeroDTO createHero(final HeroCreateDTO hero);
 
     /**
      * update hero

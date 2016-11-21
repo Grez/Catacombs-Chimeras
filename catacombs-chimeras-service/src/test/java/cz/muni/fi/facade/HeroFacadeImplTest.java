@@ -120,9 +120,14 @@ public class HeroFacadeImplTest {
 
     @Test
     public void testCreateHero() throws Exception {
-        heroFacade.createHero(heroToCreate);
+        when(heroService.createHero(hero)).thenReturn(hero);
 
-        verify(heroService, times(1)).createHero(hero);
+        HeroDTO heroDTO = heroFacade.createHero(heroToCreate);
+
+        verify(heroService, times(1)).createHero(this.hero);
+        assertThat(heroDTO.getId(), is(equalTo(ID)));
+        assertThat(heroDTO.getExperience(), is(equalTo(EXP)));
+        assertThat(heroDTO.getName(), is(equalTo(NAME)));
     }
 
     @Test

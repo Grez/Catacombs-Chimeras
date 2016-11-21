@@ -4,6 +4,7 @@
  */
 package cz.muni.fi.dao;
 
+import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Troop;
 
 import java.util.List;

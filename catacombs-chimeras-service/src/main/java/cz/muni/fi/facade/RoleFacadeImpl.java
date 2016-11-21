@@ -52,10 +52,10 @@ public class RoleFacadeImpl implements RoleFacade {
     }
 
     @Override
-    public void createRole(final RoleCreateDTO role) {
+    public RoleDTO createRole(final RoleCreateDTO role) {
         notNull(role);
         final Role roleEntity = convertToEntity(role);
-        roleService.createRole(roleEntity);
+        return convertToDTO(roleService.createRole(roleEntity));
     }
 
     @Override

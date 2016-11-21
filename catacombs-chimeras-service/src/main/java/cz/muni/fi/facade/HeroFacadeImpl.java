@@ -55,10 +55,10 @@ public class HeroFacadeImpl implements HeroFacade {
     }
 
     @Override
-    public void createHero(final HeroCreateDTO hero) {
+    public HeroDTO createHero(final HeroCreateDTO hero) {
         notNull(hero);
         final Hero heroEntity = convertToEntity(hero);
-        heroService.createHero(heroEntity);
+        return convertToDTO(heroService.createHero(heroEntity));
     }
 
     @Override
@@ -109,6 +109,7 @@ public class HeroFacadeImpl implements HeroFacade {
                 hero.getId(),
                 hero.getName(),
                 hero.getExperience(),
-                (hero.getTroop() != null) ? hero.getTroop().getId() : null);
+                (hero.getTroop() != null) ? hero.getTroop().getId() : null
+        );
     }
 }

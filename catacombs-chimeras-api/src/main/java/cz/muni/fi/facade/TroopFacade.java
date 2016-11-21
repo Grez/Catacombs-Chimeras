@@ -1,66 +1,65 @@
 /**
  * @author Tom Bartoň
  */
-package cz.muni.fi.service;
+package cz.muni.fi.facade;
 
-import cz.muni.fi.entity.Hero;
-import cz.muni.fi.entity.Troop;
+import cz.muni.fi.dto.HeroDTO;
+import cz.muni.fi.dto.TroopCreateDTO;
+import cz.muni.fi.dto.TroopDTO;
 
 import java.util.List;
 
-public interface TroopService {
-
+public interface TroopFacade {
     /**
-     * find troop by ID
-     * @param id of troop
+     * find troop by id
+     * @param id ID of troop
      * @return troop
      */
-    Troop findTroopById(final Long id);
+    TroopDTO findTroopById(final Long id);
 
     /**
      * find troop by name
      * @param name of troop
      * @return troop
      */
-    Troop findTroopByName(final String name);
+    TroopDTO findTroopByName(final String name);
 
     /**
      * find all troops
      * @return list of all troops
      */
-    List<Troop> findAllTroops();
+    List<TroopDTO> findAllTroops();
 
     /**
      * create new troop
      * @param troop to create
      * @return created troop
      */
-    Troop createTroop(final Troop troop);
+    TroopDTO createTroop(final TroopCreateDTO troop);
 
     /**
      * update troop
      * @param troop to update
      */
-    void updateTroop(final Troop troop);
+    void updateTroop(final TroopDTO troop);
 
     /**
      * remove troop specified by id
-     * @param id of troop to delete
+     * @param troopId of troop to delete
      */
-    void removeTroop(final Long id);
+    void removeTroop(final Long troopId);
 
     /**
      * add hero to troop
      * @param troopId ID of troop
      * @param heroId ID of hero
-     * @throws cz.muni.fi.exceptions.NotFoundException when troop or role not found
      */
     void addTroopHero(final Long troopId, final Long heroId);
 
     /**
      * get all heroes associated with troop
-     * @param id of troopId
+     * @param troopId of troopId
      * @return list of troop heroes
      */
-    List<Hero> getTroopHeroes(final Long id);
+    List<HeroDTO> getTroopHeroes(final Long troopId);
 }

@@ -3,6 +3,7 @@
  */
 package cz.muni.fi.facade;
 
+import cz.muni.fi.dto.HeroDTO;
 import cz.muni.fi.dto.RoleCreateDTO;
 import cz.muni.fi.dto.RoleDTO;
 import cz.muni.fi.entity.Role;
@@ -11,19 +12,22 @@ import cz.muni.fi.service.RoleService;
 
 import java.util.Collections;
 import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.hamcrest.Matchers;
-import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
-import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 
 public class RoleFacadeImplTest {
@@ -107,9 +111,15 @@ public class RoleFacadeImplTest {
     }
     
     @Test
-    public void testCreateRole() throws Exception {
-        roleFacade.createRole(roleCreateDTO);
+    public void testCreateRole() throws Exception {        
+        when(roleService.createRole(role)).thenReturn(role);
+
+        RoleDTO roleDTO = roleFacade.createRole(roleCreateDTO);
+
         verify(roleService, times(1)).createRole(role);
+        assertThat(roleDTO.getId(), is(equalTo(ID)));
+        assertThat(roleDTO.getName(), is(equalTo(NAME)));
+        assertThat(roleDTO.getDescription(), is(equalTo(DESCRIPTION)));
     }
     
     @Test

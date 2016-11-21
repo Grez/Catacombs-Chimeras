@@ -6,11 +6,13 @@ package cz.muni.fi.service;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import cz.muni.fi.dao.HeroDao;
 import cz.muni.fi.dao.TroopDao;
 import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Troop;
@@ -37,13 +39,16 @@ public class TroopServiceImplTest {
     @Mock
     private TroopDao troopDao;
 
+    @Mock
+    private HeroDao heroDao;
+
     private Troop troop;
     private Hero hero;
 
     @BeforeMethod
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        troopService = new TroopServiceImpl(troopDao);
+        troopService = new TroopServiceImpl(troopDao, heroDao);
         troop = new Troop(TROOP_NAME);
         troop.setId(2L);
 
@@ -118,6 +123,32 @@ public class TroopServiceImplTest {
     }
 
     @Test
+    public void testAddTroopHero() throws Exception {
+        when(troopDao.findById(ID)).thenReturn(troop);
+        when(heroDao.findById(HERO_ID)).thenReturn(hero);
+
+        troopService.addTroopHero(ID, HERO_ID);
+
+        verify(troopDao, times(1)).update(troop);
+        assertThat(troop.getHeroes(), containsInAnyOrder(hero));
+        assertEquals(hero.getTroop(), troop);
+    }
+
+    @Test(expectedExceptions = NotFoundException.class)
+    public void testAddTroopHeroToNonExistentTroop() throws Exception {
+        when(heroDao.findById(HERO_ID)).thenReturn(hero);
+
+        troopService.addTroopHero(27L, HERO_ID);
+    }
+
+    @Test(expectedExceptions = NotFoundException.class)
+    public void testAddTroopNonExistentHero() throws Exception {
+        when(troopDao.findById(ID)).thenReturn(troop);
+
+        troopService.addTroopHero(ID, 27L);
+    }
+
+    @Test
     public void testGetTroopHeroes() throws Exception {
         troop.addHero(hero);
         when(troopDao.findById(ID)).thenReturn(troop);
@@ -128,7 +159,7 @@ public class TroopServiceImplTest {
     }
 
     @Test(expectedExceptions = NotFoundException.class)
-    public void testGetNonExistentHeroRoles() throws Exception {
+    public void testGetNonExistentTroopHeroes() throws Exception {
         troopService.getTroopHeroes(37L);
     }
 }

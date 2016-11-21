@@ -173,6 +173,20 @@ public class TroopFacadeImplTest {
     }
 
     @Test
+    public void testAddHeroRole() throws Exception {
+        troopFacade.addTroopHero(TROOP_ID, HERO1_ID);
+
+        verify(troopService, times(1)).addTroopHero(TROOP_ID, HERO1_ID);
+    }
+
+    @Test(expectedExceptions = NotFoundException.class)
+    public void testAddHeroRoleNonExistent() throws Exception {
+        doThrow(NotFoundException.class).when(troopService).addTroopHero(NON_EXISTENT_ID, HERO1_ID);
+
+        troopFacade.addTroopHero(NON_EXISTENT_ID, HERO1_ID);
+    }
+
+    @Test
     public void testGetTroopHeroes() throws Exception {
         List list = new ArrayList();
         list.add(hero1);

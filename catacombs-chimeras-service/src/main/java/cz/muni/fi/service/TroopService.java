@@ -50,6 +50,14 @@ public interface TroopService {
     void removeTroop(final Long id);
 
     /**
+     * add hero to troop
+     * @param troopId ID of troop
+     * @param heroId ID of hero
+     * @throws cz.muni.fi.exceptions.NotFoundException when troop or role not found
+     */
+    void addTroopHero(final Long troopId, final Long heroId);
+
+    /**
      * get all heroes associated with troop
      * @param id of troopId
      * @return list of troop heroes

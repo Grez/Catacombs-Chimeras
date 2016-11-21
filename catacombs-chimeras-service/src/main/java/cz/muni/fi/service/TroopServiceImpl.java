@@ -6,6 +6,7 @@ package cz.muni.fi.service;
 import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
 
+import cz.muni.fi.dao.HeroDao;
 import cz.muni.fi.dao.TroopDao;
 import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Troop;
@@ -21,10 +22,13 @@ public class TroopServiceImpl implements TroopService {
 
     private final TroopDao troopDao;
 
+    private final HeroDao heroDao;
+
     @Autowired
-    public TroopServiceImpl(final TroopDao troopDao) {
+    public TroopServiceImpl(final TroopDao troopDao, final HeroDao heroDao) {
         notNull(troopDao);
         this.troopDao = troopDao;
+        this.heroDao = heroDao;
     }
 
     @Override
@@ -73,6 +77,26 @@ public class TroopServiceImpl implements TroopService {
             throw new NotFoundException("Troop with ID " + id + " not found");
         }
         troopDao.delete(troop);
+    }
+
+    @Override
+    public void addTroopHero(final Long troopId, final Long heroId) {
+        notNull(troopId);
+        notNull(heroId);
+
+        final Troop troop = findTroopById(troopId);
+        if (troop == null) {
+            throw new NotFoundException("Troop with ID " + troopId + " not found");
+        }
+
+        final Hero hero = heroDao.findById(heroId);
+        if (hero == null) {
+            throw new NotFoundException("Hero with ID " + heroId + " not found");
+        }
+
+        troop.addHero(hero);
+        troopDao.update(troop);
+        heroDao.update(hero);
     }
 
     @Override

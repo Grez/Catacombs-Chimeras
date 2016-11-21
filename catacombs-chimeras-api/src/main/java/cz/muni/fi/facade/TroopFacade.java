@@ -50,6 +50,13 @@ public interface TroopFacade {
     void removeTroop(final Long troopId);
 
     /**
+     * add hero to troop
+     * @param troopId ID of troop
+     * @param heroId ID of hero
+     */
+    void addTroopHero(final Long troopId, final Long heroId);
+
+    /**
      * get all heroes associated with troop
      * @param troopId of troopId
      * @return list of troop heroes

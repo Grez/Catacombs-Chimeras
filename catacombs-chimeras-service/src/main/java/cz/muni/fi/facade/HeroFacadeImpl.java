@@ -10,7 +10,6 @@ import cz.muni.fi.dto.HeroCreateDTO;
 import cz.muni.fi.dto.HeroDTO;
 import cz.muni.fi.dto.RoleDTO;
 import cz.muni.fi.entity.Hero;
-import cz.muni.fi.entity.Role;
 import cz.muni.fi.service.HeroService;
 import cz.muni.fi.service.TroopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +84,7 @@ public class HeroFacadeImpl implements HeroFacade {
     @Override
     public List<RoleDTO> getHeroRoles(final Long heroId) {
         notNull(heroId);
-        return heroService.getHeroRoles(heroId).stream().map(this::convertToDTO).collect(Collectors.toList());
+        return heroService.getHeroRoles(heroId).stream().map(RoleFacadeImpl::convertToDTO).collect(Collectors.toList());
     }
 
     private Hero convertToEntity(final HeroDTO heroDTO) {
@@ -112,9 +111,5 @@ public class HeroFacadeImpl implements HeroFacade {
                 hero.getExperience(),
                 (hero.getTroop() != null) ? hero.getTroop().getId() : null
         );
-    }
-
-    private RoleDTO convertToDTO(final Role role) {
-        return new RoleDTO(role.getId(), role.getName(), role.getDescription());
     }
 }

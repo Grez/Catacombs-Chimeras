@@ -3,7 +3,9 @@
  */
 package cz.muni.fi.service;
 
+import cz.muni.fi.dao.HeroDao;
 import cz.muni.fi.dao.RoleDao;
+import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Role;
 import cz.muni.fi.exceptions.NotFoundException;
 
@@ -16,6 +18,8 @@ import org.testng.annotations.Test;
 import org.mockito.Mock;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.times;
@@ -31,16 +35,23 @@ public class RoleServiceImplTest {
     private static final String DESCRIPTION = "ungly";
     
     private RoleService roleService;
+
+    private Hero hero;
     private Role role;
     
     @Mock
     private RoleDao roleDao;
+    @Mock
+    private HeroDao heroDao;
     
     @BeforeTest
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         
-        roleService = new RoleServiceImpl(roleDao);
+        roleService = new RoleServiceImpl(roleDao, heroDao);
+
+        hero = new Hero("Pepa");
+        hero.setId(2L);
 
         role = new Role();
         role.setId(ID);
@@ -94,9 +105,13 @@ public class RoleServiceImplTest {
 
     @Test
     public void removeRole() throws Exception {
+        hero.addRole(role);
         when(roleDao.findById(ID)).thenReturn(role);
+
         roleService.removeRole(ID);
+
         verify(roleDao, times(1)).delete(role);
+        assertThat(hero.getRoles(), not(contains(role)));
     }
     
     @Test(expectedExceptions = NotFoundException.class)

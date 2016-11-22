@@ -8,27 +8,34 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 import cz.muni.fi.dao.HeroDao;
 import cz.muni.fi.dao.RoleDao;
+import cz.muni.fi.dao.TroopDao;
 import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Role;
+import cz.muni.fi.entity.Troop;
 import cz.muni.fi.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class HeroServiceImpl implements HeroService {
 
     private final HeroDao heroDao;
     private final RoleDao roleDao;
+    private final TroopDao troopDao;
 
     @Autowired
-    public HeroServiceImpl(final HeroDao heroDao, final RoleDao roleDao) {
+    public HeroServiceImpl(final HeroDao heroDao, final RoleDao roleDao, final TroopDao troopDao) {
         notNull(heroDao);
         notNull(roleDao);
+        notNull(troopDao);
         this.heroDao = heroDao;
         this.roleDao = roleDao;
+        this.troopDao = troopDao;
     }
 
     @Override
@@ -76,6 +83,16 @@ public class HeroServiceImpl implements HeroService {
         if (hero == null) {
             throw new NotFoundException("Hero with ID: " + id + " not found");
         }
+        if (hero.getTroop() != null) { //remove reference from troop
+            final Troop troop = hero.getTroop();
+            troop.removeHero(hero);
+            troopDao.update(troop);
+        }
+        final Set<Role> roles = new HashSet<>(hero.getRoles());
+        roles.stream().forEach(role -> { //remove reference from roles
+            hero.removeRole(role);
+            roleDao.update(role);
+        });
         heroDao.delete(hero);
     }
 

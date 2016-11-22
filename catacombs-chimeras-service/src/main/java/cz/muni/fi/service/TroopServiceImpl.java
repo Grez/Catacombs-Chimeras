@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class TroopServiceImpl implements TroopService {
@@ -76,6 +78,11 @@ public class TroopServiceImpl implements TroopService {
         if (troop == null) {
             throw new NotFoundException("Troop with ID " + id + " not found");
         }
+        Set<Hero> heroes = new HashSet<>(troop.getHeroes());
+        heroes.stream().forEach(hero -> { //remove all references from heroes
+            troop.removeHero(hero);
+            heroDao.update(hero);
+        });
         troopDao.delete(troop);
     }
 

@@ -5,6 +5,7 @@ package cz.muni.fi.service;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -110,11 +111,13 @@ public class TroopServiceImplTest {
 
     @Test
     public void testRemoveTroop() throws Exception {
+        troop.addHero(hero);
         when(troopDao.findById(ID)).thenReturn(troop);
 
         troopService.removeTroop(ID);
 
         verify(troopDao, times(1)).delete(troop);
+        assertThat(hero.getTroop(), is(nullValue()));
     }
 
     @Test(expectedExceptions = NotFoundException.class)

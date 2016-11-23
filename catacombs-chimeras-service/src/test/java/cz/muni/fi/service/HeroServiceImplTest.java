@@ -5,6 +5,8 @@ package cz.muni.fi.service;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.times;
@@ -13,8 +15,10 @@ import static org.mockito.Mockito.when;
 
 import cz.muni.fi.dao.HeroDao;
 import cz.muni.fi.dao.RoleDao;
+import cz.muni.fi.dao.TroopDao;
 import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Role;
+import cz.muni.fi.entity.Troop;
 import cz.muni.fi.exceptions.NotFoundException;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -29,6 +33,9 @@ public class HeroServiceImplTest {
     private static final Long ID = 2L;
     private static final String NAME = "Superman";
     private static final Long ROLE_ID = 333L;
+    private static final String ROLE_NAME = "Alien";
+    private static final Long TROOP_ID = 1L;
+    private static final String TROOP_NAME = "Mario";
 
     private HeroService heroService;
 
@@ -36,19 +43,27 @@ public class HeroServiceImplTest {
     private HeroDao heroDao;
     @Mock
     private RoleDao roleDao;
+    @Mock
+    private TroopDao troopDao;
 
     private Hero hero;
     private Role role;
+    private Troop troop;
+
 
     @BeforeMethod
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        heroService = new HeroServiceImpl(heroDao, roleDao);
+        heroService = new HeroServiceImpl(heroDao, roleDao, troopDao);
         hero = new Hero(NAME);
         hero.setId(2L);
-        role = new Role("Alien");
+
+        role = new Role(ROLE_NAME);
         role.setId(ROLE_ID);
         role.setDescription("");
+
+        troop = new Troop(TROOP_NAME);
+        troop.setId(TROOP_ID);
     }
 
     @Test
@@ -105,11 +120,15 @@ public class HeroServiceImplTest {
 
     @Test
     public void testRemoveHero() throws Exception {
+        hero.addRole(role);
+        troop.addHero(hero);
         when(heroDao.findById(ID)).thenReturn(hero);
 
         heroService.removeHero(ID);
 
         verify(heroDao, times(1)).delete(hero);
+        assertThat(role.getHeroes(), not(contains(hero)));
+        assertThat(troop.getHeroes(), not(contains(hero)));
     }
 
     @Test(expectedExceptions = NotFoundException.class)

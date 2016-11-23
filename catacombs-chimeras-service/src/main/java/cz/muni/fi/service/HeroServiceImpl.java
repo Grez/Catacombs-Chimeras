@@ -17,8 +17,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+<<<<<<< HEAD
 import java.util.Random;
+=======
+import java.util.Set;
+>>>>>>> master
 
 @Service
 public class HeroServiceImpl implements HeroService {
@@ -82,6 +87,16 @@ public class HeroServiceImpl implements HeroService {
         if (hero == null) {
             throw new NotFoundException("Hero with ID: " + id + " not found");
         }
+        if (hero.getTroop() != null) { //remove reference from troop
+            final Troop troop = hero.getTroop();
+            troop.removeHero(hero);
+            troopDao.update(troop);
+        }
+        final Set<Role> roles = new HashSet<>(hero.getRoles());
+        roles.stream().forEach(role -> { //remove reference from roles
+            hero.removeRole(role);
+            roleDao.update(role);
+        });
         heroDao.delete(hero);
     }
 

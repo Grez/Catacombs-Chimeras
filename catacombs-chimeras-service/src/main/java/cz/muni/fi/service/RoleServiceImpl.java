@@ -3,11 +3,15 @@
  */
 package cz.muni.fi.service;
 
+import cz.muni.fi.dao.HeroDao;
 import cz.muni.fi.dao.RoleDao;
+import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Role;
 import cz.muni.fi.exceptions.NotFoundException;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.apache.commons.lang3.Validate.notNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +20,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class RoleServiceImpl implements RoleService {
     
     private final RoleDao roleDao;
-    
+    private final HeroDao heroDao;
+
     @Autowired
-    public RoleServiceImpl(final RoleDao roleDao){
+    public RoleServiceImpl(final RoleDao roleDao, final HeroDao heroDao) {
         notNull(roleDao);
+        notNull(heroDao);
         this.roleDao = roleDao;
+        this.heroDao = heroDao;
     }
     
     @Override
@@ -65,9 +72,14 @@ public class RoleServiceImpl implements RoleService {
     public void removeRole(final Long id){
         notNull(id);
         Role role = roleDao.findById(id);
-        if(role == null){
+        if (role == null) {
             throw new NotFoundException("Role with ID: " + id + " not found");
         }
+        final Set<Hero> heroes = new HashSet<>(role.getHeroes());
+        heroes.stream().forEach(hero -> { //remove all references from heroes
+            hero.removeRole(role);
+            heroDao.update(hero);
+        });
         roleDao.delete(role);
     }
 }

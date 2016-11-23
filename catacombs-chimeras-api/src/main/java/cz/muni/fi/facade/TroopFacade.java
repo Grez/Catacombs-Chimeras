@@ -6,6 +6,7 @@ package cz.muni.fi.facade;
 import cz.muni.fi.dto.HeroDTO;
 import cz.muni.fi.dto.TroopCreateDTO;
 import cz.muni.fi.dto.TroopDTO;
+import cz.muni.fi.dto.TroopsAvgExpReportDTO;
 
 import java.util.List;
 
@@ -62,4 +63,13 @@ public interface TroopFacade {
      * @return list of troop heroes
      */
     List<HeroDTO> getTroopHeroes(final Long troopId);
+
+    /**
+     * report based on all reports, it counts average experience level of heroes in each troop, where
+     * if troop has more than two heroes, heroes with highest and lowest experience are
+     * not used for counting this average. Also orders troops based on average of each troop
+     *
+     * @return report based on average experience level of heroes in each troop
+     */
+    TroopsAvgExpReportDTO countTroopsAverageExperienceReport();
 }

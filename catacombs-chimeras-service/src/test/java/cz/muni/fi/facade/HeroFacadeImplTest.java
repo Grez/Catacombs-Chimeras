@@ -158,6 +158,13 @@ public class HeroFacadeImplTest {
         verify(heroService, times(1)).addHeroRole(ID, ROLE_ID);
     }
 
+    @Test
+    public void testRemoveHeroRole() throws Exception {
+        heroFacade.removeHeroRole(ID, ROLE_ID);
+
+        verify(heroService, times(1)).removeHeroRole(ID, ROLE_ID);
+    }
+
     @Test(expectedExceptions = NotFoundException.class)
     public void testAddHeroRoleNonExistent() throws Exception {
         doThrow(NotFoundException.class).when(heroService).addHeroRole(NON_EXISTENT_ID, ROLE_ID);

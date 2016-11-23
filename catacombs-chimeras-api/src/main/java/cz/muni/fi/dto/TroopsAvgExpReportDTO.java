@@ -22,9 +22,9 @@ public class TroopsAvgExpReportDTO {
     /**
      * ordered list of report items
      *
-     * @return ordered list of troops based on average experience level of heroes in troop
+     * @return ordered list of report items ordered based on average experience level of heroes in troop
      */
-    public List<TroopsAvgExpReportItemDTO> getTroops() {
+    public List<TroopsAvgExpReportItemDTO> getReportItems() {
         return troops;
     }
 

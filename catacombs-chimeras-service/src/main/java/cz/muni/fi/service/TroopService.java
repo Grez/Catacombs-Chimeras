@@ -7,6 +7,7 @@ import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Troop;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TroopService {
 
@@ -67,4 +68,10 @@ public interface TroopService {
      * @throws cz.muni.fi.exceptions.NotFoundException when troop with id not found
      */
     List<Hero> getTroopHeroes(final Long id);
+    
+    /**
+     * Returns descending list of all troops 
+     * @return 
+     */
+    Map<Troop,Double> getMoneyPerHeroList();
 }

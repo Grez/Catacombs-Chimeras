@@ -58,6 +58,15 @@ public interface HeroFacade {
     void addHeroRole(final Long heroId, final Long roleId);
 
     /**
+     * remove hero role
+     * does not delete role, only removes association between concrete instances of hero and role
+     *
+     * @param heroId ID of hero
+     * @param roleId ID of role
+     */
+    void removeHeroRole(final Long heroId, final Long roleId);
+
+    /**
      * get all roles associated with hero
      * @param heroId  of hero
      * @return list of hero roles

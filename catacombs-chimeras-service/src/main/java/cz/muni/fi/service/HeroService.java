@@ -62,6 +62,16 @@ public interface HeroService {
     void addHeroRole(final Long heroId, final Long roleId);
 
     /**
+     * remove hero role,
+     * does not delete role entity, only removes association, between two concrete instances of hero and role
+     *
+     * @param heroId ID of hero
+     * @param roleId ID of role
+     * @throws cz.muni.fi.exceptions.NotFoundException when hero or role not found
+     */
+    void removeHeroRole(final Long heroId, final Long roleId);
+
+    /**
      * get all roles associated with hero
      * @param heroId ID of hero
      * @throws cz.muni.fi.exceptions.NotFoundException when hero not found

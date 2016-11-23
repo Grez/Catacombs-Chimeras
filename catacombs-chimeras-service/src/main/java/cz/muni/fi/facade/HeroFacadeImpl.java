@@ -82,6 +82,13 @@ public class HeroFacadeImpl implements HeroFacade {
     }
 
     @Override
+    public void removeHeroRole(final Long heroId, final Long roleId) {
+        notNull(heroId);
+        notNull(roleId);
+        heroService.removeHeroRole(heroId, roleId);
+    }
+
+    @Override
     public List<RoleDTO> getHeroRoles(final Long heroId) {
         notNull(heroId);
         return heroService.getHeroRoles(heroId).stream().map(RoleFacadeImpl::convertToDTO).collect(Collectors.toList());

@@ -3,11 +3,13 @@
  */
 package cz.muni.fi.service;
 
+
+import cz.muni.fi.dto.TroopWealthDTO;
+import cz.muni.fi.dto.TroopsAvgExpReportDTO;
 import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Troop;
 
 import java.util.List;
-import java.util.Map;
 
 public interface TroopService {
 
@@ -68,10 +70,22 @@ public interface TroopService {
      * @throws cz.muni.fi.exceptions.NotFoundException when troop with id not found
      */
     List<Hero> getTroopHeroes(final Long id);
+
+    /**
+     * report based on all reports, it counts average experience level of heroes in each troop, where
+     * if troop has more than two heroes, heroes with highest and lowest experience are
+     * not used for counting this average. Also orders troops based on average of each troop
+     *
+     * @return report based on average experience level of heroes in each troop
+     */
+    TroopsAvgExpReportDTO countTroopsAverageExperienceReport();
     
     /**
-     * Returns descending list of all troops 
-     * @return 
+     * it takes all troops and count its money per hero
+     * (money of troop divided by number of heroes in the troop)
+     * and sort the troops in the list in descending order
+     * according to how much money for a hero they have.
+     * @return report with list of troops sorted by amount of money per hero in the troop
      */
-    Map<Troop,Double> getMoneyPerHeroList();
+    TroopWealthDTO getMoneyPerHeroList();
 }

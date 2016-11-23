@@ -9,6 +9,7 @@ import static org.apache.commons.lang3.Validate.notNull;
 import cz.muni.fi.dto.HeroDTO;
 import cz.muni.fi.dto.TroopCreateDTO;
 import cz.muni.fi.dto.TroopDTO;
+import cz.muni.fi.dto.TroopsAvgExpReportDTO;
 import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Troop;
 import cz.muni.fi.exceptions.NotFoundException;
@@ -83,6 +84,11 @@ public class TroopFacadeImpl implements TroopFacade {
     public List<HeroDTO> getTroopHeroes(final Long troopId) {
         notNull(troopId);
         return troopService.getTroopHeroes(troopId).stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public TroopsAvgExpReportDTO countTroopsAverageExperienceReport() {
+        return troopService.countTroopsAverageExperienceReport();
     }
 
     private Troop convertToEntity(final TroopDTO troopDTO) {

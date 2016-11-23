@@ -19,11 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-<<<<<<< HEAD
-import java.util.Random;
-=======
 import java.util.Set;
->>>>>>> master
 
 @Service
 public class HeroServiceImpl implements HeroService {
@@ -106,13 +102,30 @@ public class HeroServiceImpl implements HeroService {
         notNull(roleId);
         final Hero hero = heroDao.findById(heroId);
         if (hero == null) {
-            throw new NotFoundException("Hero with ID " + heroId + " not found");
+            throw new NotFoundException("Hero with ID: " + heroId + " not found");
         }
         final Role role = roleDao.findById(roleId);
         if (role == null) {
             throw new NotFoundException("Role with ID: " + roleId + " not found");
         }
         hero.addRole(role);
+        heroDao.update(hero);
+        roleDao.update(role);
+    }
+
+    @Override
+    public void removeHeroRole(final Long heroId, final Long roleId) {
+        notNull(heroId);
+        notNull(roleId);
+        final Hero hero = heroDao.findById(heroId);
+        if (hero == null) {
+            throw new NotFoundException("Hero with ID: " + heroId + " not found");
+        }
+        final Role role = roleDao.findById(roleId);
+        if (role == null) {
+            throw new NotFoundException("Role with ID: " + roleId + " not found");
+        }
+        hero.removeRole(role);
         heroDao.update(hero);
         roleDao.update(role);
     }

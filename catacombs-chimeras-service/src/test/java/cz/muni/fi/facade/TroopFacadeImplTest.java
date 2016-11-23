@@ -20,7 +20,6 @@ import cz.muni.fi.entity.Hero;
 import cz.muni.fi.exceptions.NotFoundException;
 import cz.muni.fi.service.HeroService;
 import cz.muni.fi.service.TroopService;
-import cz.muni.fi.service.TroopService;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.testng.annotations.BeforeMethod;
@@ -211,6 +210,13 @@ public class TroopFacadeImplTest {
         doThrow(NotFoundException.class).when(troopService).getTroopHeroes(NON_EXISTENT_ID);
 
         troopFacade.getTroopHeroes(NON_EXISTENT_ID);
+    }
+
+    @Test
+    public void countTroopsAverageExperienceReport() throws Exception {
+        troopFacade.countTroopsAverageExperienceReport();
+
+        verify(troopService, times(1)).countTroopsAverageExperienceReport();
     }
 
 }

@@ -8,6 +8,9 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 import cz.muni.fi.dao.HeroDao;
 import cz.muni.fi.dao.TroopDao;
+import cz.muni.fi.dto.TroopDTO;
+import cz.muni.fi.dto.TroopsAvgExpReportDTO;
+import cz.muni.fi.dto.TroopsAvgExpReportItemDTO;
 import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Troop;
 import cz.muni.fi.exceptions.NotFoundException;
@@ -15,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -114,5 +118,38 @@ public class TroopServiceImpl implements TroopService {
             throw new NotFoundException("Troop with ID " + id + " not found");
         }
         return new ArrayList<>(troop.getHeroes());
+    }
+
+    @Override
+    public TroopsAvgExpReportDTO countTroopsAverageExperienceReport() {
+        List<TroopsAvgExpReportItemDTO> listOfReportItems = new ArrayList<>();
+        for (Troop troop : findAllTroops()) {
+            final List<Hero> heroes = new ArrayList<>(troop.getHeroes());
+            if (heroes.size() == 0) {
+                listOfReportItems.add(new TroopsAvgExpReportItemDTO(convertToDTO(troop), 0.0));
+                continue;
+            }
+            if (heroes.size() > 2) { //if troop has more than two heroes, remove hero with highest and lowest experience
+                Collections.sort(heroes, (x, y) -> x.getExperience().compareTo(y.getExperience()));
+                heroes.remove(heroes.size() - 1);
+                heroes.remove(0);
+            }
+            final double average = heroes.stream().mapToLong(Hero::getExperience).average().getAsDouble();
+            final TroopsAvgExpReportItemDTO troopReportItemDTO = new TroopsAvgExpReportItemDTO(convertToDTO(troop), average);
+            listOfReportItems.add(troopReportItemDTO);
+        }
+        Collections.sort(listOfReportItems, (x, y) -> x.getAverage().compareTo(y.getAverage()));
+        return new TroopsAvgExpReportDTO(listOfReportItems,
+                (listOfReportItems.isEmpty()) ? 0 : listOfReportItems.get(listOfReportItems.size() - 1).getAverage(),
+                (listOfReportItems.isEmpty()) ? 0 : listOfReportItems.get(0).getAverage());
+    }
+
+    private TroopDTO convertToDTO(final Troop troop) {
+        return new TroopDTO(
+                troop.getId(),
+                troop.getName(),
+                troop.getMission(),
+                troop.getAmountOfMoney()
+        );
     }
 }

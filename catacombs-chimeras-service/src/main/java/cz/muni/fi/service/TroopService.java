@@ -3,6 +3,7 @@
  */
 package cz.muni.fi.service;
 
+import cz.muni.fi.dto.TroopsAvgExpReportDTO;
 import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Troop;
 
@@ -67,4 +68,14 @@ public interface TroopService {
      * @throws cz.muni.fi.exceptions.NotFoundException when troop with id not found
      */
     List<Hero> getTroopHeroes(final Long id);
+
+
+    /**
+     * report based on all reports, it counts average experience level of heroes in each troop, where
+     * if troop has more than two heroes, heroes with highest and lowest experience are
+     * not used for counting this average. Also orders troops based on average of each troop
+     *
+     * @return report based on average experience level of heroes in each troop
+     */
+    TroopsAvgExpReportDTO countTroopsAverageExperienceReport();
 }

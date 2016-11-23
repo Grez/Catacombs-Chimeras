@@ -14,6 +14,7 @@ public interface TroopService {
      * find troop by ID
      * @param id of troop
      * @return troop
+     * @throws cz.muni.fi.exceptions.NotFoundException when troop with id not found
      */
     Troop findTroopById(final Long id);
 
@@ -21,6 +22,7 @@ public interface TroopService {
      * find troop by name
      * @param name of troop
      * @return troop
+     * @throws cz.muni.fi.exceptions.NotFoundException when troop with name not found
      */
     Troop findTroopByName(final String name);
 
@@ -46,6 +48,7 @@ public interface TroopService {
     /**
      * remove troop specified by id
      * @param id of troop to delete
+     * @throws cz.muni.fi.exceptions.NotFoundException when troop with id not found
      */
     void removeTroop(final Long id);
 
@@ -53,7 +56,7 @@ public interface TroopService {
      * add hero to troop
      * @param troopId ID of troop
      * @param heroId ID of hero
-     * @throws cz.muni.fi.exceptions.NotFoundException when troop or role not found
+     * @throws cz.muni.fi.exceptions.NotFoundException when troop or hero not found
      */
     void addTroopHero(final Long troopId, final Long heroId);
 
@@ -61,6 +64,7 @@ public interface TroopService {
      * get all heroes associated with troop
      * @param id of troopId
      * @return list of troop heroes
+     * @throws cz.muni.fi.exceptions.NotFoundException when troop with id not found
      */
     List<Hero> getTroopHeroes(final Long id);
 }

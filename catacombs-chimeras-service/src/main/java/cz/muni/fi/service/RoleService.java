@@ -13,6 +13,7 @@ public interface RoleService {
      * find role by id
      * @param id ID of role
      * @return role
+     * @throws cz.muni.fi.exceptions.NotFoundException when role with id not found
      */
     Role findRoleById(final Long id);
 
@@ -20,6 +21,7 @@ public interface RoleService {
      * find role by name
      * @param name of role
      * @return role
+     * @throws cz.muni.fi.exceptions.NotFoundException when role with name not found
      */
     Role findRoleByName(final String name);
 
@@ -45,6 +47,7 @@ public interface RoleService {
     /**
      * remove role specified by id
      * @param id of role to delete
+     * @throws cz.muni.fi.exceptions.NotFoundException when role with id not found
      */
     void removeRole(final Long id);
 }

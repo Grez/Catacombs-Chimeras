@@ -8,6 +8,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.empty;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -161,6 +162,43 @@ public class HeroServiceImplTest {
         when(heroDao.findById(ID)).thenReturn(hero);
 
         heroService.addHeroRole(ID, 27L);
+    }
+
+    @Test(dependsOnMethods = "testAddHeroRole")
+    public void testRemoveHeroRole() throws Exception {
+        when(heroDao.findById(ID)).thenReturn(hero);
+        when(roleDao.findById(ROLE_ID)).thenReturn(role);
+        heroService.addHeroRole(hero.getId(), role.getId());
+
+        heroService.removeHeroRole(hero.getId(), role.getId());
+
+        assertThat(hero.getRoles(), is(empty()));
+        assertThat(role.getHeroes(), is(empty()));
+    }
+
+    @Test
+    public void testRemoveHeroRoleWhichHeDoesNotHave() throws Exception {
+        when(heroDao.findById(ID)).thenReturn(hero);
+        when(roleDao.findById(ROLE_ID)).thenReturn(role);
+
+        heroService.removeHeroRole(hero.getId(), role.getId());
+
+        assertThat(hero.getRoles(), is(empty()));
+        assertThat(role.getHeroes(), is(empty()));
+    }
+
+    @Test(expectedExceptions = NotFoundException.class)
+    public void testRemoveHeroRoleToNonExistentHero() throws Exception {
+        when(roleDao.findById(ROLE_ID)).thenReturn(role);
+
+        heroService.removeHeroRole(27L, ROLE_ID);
+    }
+
+    @Test(expectedExceptions = NotFoundException.class)
+    public void testRemoveHeroNonExistentRole() throws Exception {
+        when(heroDao.findById(ID)).thenReturn(hero);
+
+        heroService.removeHeroRole(ID, 27L);
     }
 
     @Test

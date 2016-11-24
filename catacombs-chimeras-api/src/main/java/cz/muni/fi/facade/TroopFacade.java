@@ -6,6 +6,7 @@ package cz.muni.fi.facade;
 import cz.muni.fi.dto.HeroDTO;
 import cz.muni.fi.dto.TroopCreateDTO;
 import cz.muni.fi.dto.TroopDTO;
+import cz.muni.fi.dto.TroopWealthDTO;
 import cz.muni.fi.dto.TroopsAvgExpReportDTO;
 
 import java.util.List;
@@ -72,4 +73,12 @@ public interface TroopFacade {
      * @return report based on average experience level of heroes in each troop
      */
     TroopsAvgExpReportDTO countTroopsAverageExperienceReport();
+    
+    /**
+     * it takes all troops and count its money per hero
+     * (money of troop divided by number of heroes in the troop)
+     * and sort the troops in the list according to how much money for a hero they have.
+     * @return report with list of troops sorted by amount of money per hero in the troop
+     */
+    TroopWealthDTO getMoneyPerHeroList();
 }

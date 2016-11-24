@@ -83,8 +83,7 @@ public interface TroopService {
     /**
      * it takes all troops and count its money per hero
      * (money of troop divided by number of heroes in the troop)
-     * and sort the troops in the list in descending order
-     * according to how much money for a hero they have.
+     * and sort the troops in the list according to how much money for a hero they have.
      * @return report with list of troops sorted by amount of money per hero in the troop
      */
     TroopWealthDTO getMoneyPerHeroList();

@@ -150,15 +150,15 @@ public class TroopServiceImpl implements TroopService {
     @Override
     public TroopWealthDTO getMoneyPerHeroList() {
         List<TroopWealthItemDTO> troops = new ArrayList<>();
-        for(Troop troop :findAllTroops()) {
-            if(troop.getHeroes().isEmpty()) {
-                troops.add(new TroopWealthItemDTO(convertToDTO(troop), new Double(troop.getAmountOfMoney())));
+        for(Troop troop : findAllTroops()) {
+            if(troop.getHeroes().isEmpty() || troop.getAmountOfMoney() == null) {
+                troops.add(new TroopWealthItemDTO(convertToDTO(troop), new Double(0)));
             } else {
                 Double moneyPerHero = new Double(troop.getAmountOfMoney().doubleValue() / troop.getHeroes().size());
                 troops.add(new TroopWealthItemDTO(convertToDTO(troop), moneyPerHero));
             }
         }
-        Collections.sort(troops, (x, y) -> x.getMoneyPerHero().compareTo(y.getMoneyPerHero()));
+        Collections.sort(troops, (x, y) -> x.getMoneyPerHero().compareTo(y.getMoneyPerHero())); 
         return new TroopWealthDTO(troops);
     }
 

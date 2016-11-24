@@ -23,4 +23,24 @@ public class TroopWealthDTO {
     public List<TroopWealthItemDTO> getTroopWealthList() {
         return troops;
     }
+    
+    public int getNumberOfTroops() {
+        return troops.size();
+    }
+    
+    public Double getMaximumMoneyPerHero() {
+        if(!troops.isEmpty()) {
+            return troops.get(troops.size()-1).getMoneyPerHero();
+        } else {
+            return new Double(0.0);
+        }
+    }
+    
+    public Double getMinimumMoneyPerHero() {
+        if(!troops.isEmpty()) {
+            return troops.get(0).getMoneyPerHero();
+        } else {
+            return new Double(0.0);
+        }
+    }
 }

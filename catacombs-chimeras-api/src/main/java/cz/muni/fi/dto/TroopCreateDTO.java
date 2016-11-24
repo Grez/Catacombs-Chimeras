@@ -16,13 +16,16 @@ public class TroopCreateDTO {
     public TroopCreateDTO(final String name, final String mission, final Long amountOfMoney) {
         this.name = notNull(name);
         this.mission = mission;
-        this.amountOfMoney = amountOfMoney;
+        this.amountOfMoney = notNull(amountOfMoney);
     }
 
     public String getName() {
         return name;
     }
 
+    /**
+     * @return String|null
+     */
     public String getMission() {
         return mission;
     }

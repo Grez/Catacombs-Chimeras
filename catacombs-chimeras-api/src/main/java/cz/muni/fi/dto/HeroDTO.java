@@ -15,7 +15,7 @@ public class HeroDTO {
     public HeroDTO(final Long id, final String name, final Long experience, final Long troopId) {
         this.id = notNull(id);
         this.name = notNull(name);
-        this.experience =  notNull(experience);
+        this.experience = notNull(experience);
         this.troopId = troopId;
     }
 
@@ -31,16 +31,19 @@ public class HeroDTO {
         return experience;
     }
 
+    /**
+     * @return Long|null
+     */
     public Long getTroopId() {
         return troopId;
     }
 
     public void setName(final String name) {
-        this.name = name;
+        this.name = notNull(name);
     }
 
     public void setExperience(final Long experience) {
-        this.experience = experience;
+        this.experience = notNull(experience);
     }
 
     public void setTroopId(final Long troopId) {
@@ -49,15 +52,17 @@ public class HeroDTO {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (o == null || getClass() != o.getClass())
+        }
+
+        if (o == null || getClass() != o.getClass()) {
             return false;
+        }
 
         final HeroDTO heroDTO = (HeroDTO) o;
 
         return name.equals(heroDTO.name);
-
     }
 
     @Override

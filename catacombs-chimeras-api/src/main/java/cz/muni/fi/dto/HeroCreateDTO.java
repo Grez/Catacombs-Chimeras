@@ -17,10 +17,9 @@ public class HeroCreateDTO {
 
     public HeroCreateDTO(final String name, final Long experience, final Long troopId) {
         this.name = notNull(name);
-        this.experience =  notNull(experience);
+        this.experience = notNull(experience);
         this.troopId = troopId;
     }
-
 
     public String getName() {
         return name;
@@ -36,10 +35,13 @@ public class HeroCreateDTO {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (o == null || getClass() != o.getClass())
+        }
+
+        if (o == null || getClass() != o.getClass()) {
             return false;
+        }
 
         final HeroCreateDTO that = (HeroCreateDTO) o;
 

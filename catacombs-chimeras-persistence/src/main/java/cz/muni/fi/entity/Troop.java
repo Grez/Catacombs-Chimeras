@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 
@@ -29,14 +30,16 @@ public class Troop {
     private String name;
     
     private String mission;
-    
-    private Long amountOfMoney;
+
+    @NotNull
+    @Min(0L)
+    private Long amountOfMoney = 0L;
 
     @OneToMany(mappedBy = "troop")
     private Set<Hero> heroes = new HashSet<>();
     
     public Troop() {
-        
+
     }
     
     public Troop(final String name) {

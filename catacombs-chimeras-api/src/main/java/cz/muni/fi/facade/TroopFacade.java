@@ -65,9 +65,9 @@ public interface TroopFacade {
     List<HeroDTO> getTroopHeroes(final Long troopId);
 
     /**
-     * report based on all reports, it counts average experience level of heroes in each troop, where
+     * report based on all troops, it counts average experience level of heroes in each troop, where
      * if troop has more than two heroes, heroes with highest and lowest experience are
-     * not used for counting this average. Also orders troops based on average of each troop
+     * not used for counting this average. Also orders troops based on average experience of each troop
      *
      * @return report based on average experience level of heroes in each troop
      */

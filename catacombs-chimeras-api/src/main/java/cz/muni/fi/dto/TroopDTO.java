@@ -19,7 +19,7 @@ public class TroopDTO {
         this.id = notNull(id);
         this.name = notNull(name);
         this.mission = mission;
-        this.amountOfMoney = amountOfMoney;
+        this.amountOfMoney = notNull(amountOfMoney);
     }
 
     public Long getId() {
@@ -39,7 +39,7 @@ public class TroopDTO {
     }
 
     public void setName(final String name) {
-        this.name = name;
+        this.name = notNull(name);
     }
 
     public void setMission(final String mission) {
@@ -47,7 +47,7 @@ public class TroopDTO {
     }
 
     public void setAmountOfMoney(final Long amountOfMoney) {
-        this.amountOfMoney = amountOfMoney;
+        this.amountOfMoney = notNull(amountOfMoney);
     }
 
     @Override

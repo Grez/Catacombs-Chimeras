@@ -36,11 +36,11 @@ public class HeroDTO {
     }
 
     public void setName(final String name) {
-        this.name = name;
+        this.name = notNull(name);
     }
 
     public void setExperience(final Long experience) {
-        this.experience = experience;
+        this.experience = notNull(experience);
     }
 
     public void setTroopId(final Long troopId) {

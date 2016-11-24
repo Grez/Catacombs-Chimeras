@@ -30,7 +30,7 @@ public class RoleDTO {
     }
 
     public void setName(final String name) {
-        this.name = name;
+        this.name = notNull(name);
     }
 
     public void setDescription(final String description) {

@@ -5,6 +5,7 @@ package cz.muni.fi.service;
 
 import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Role;
+import cz.muni.fi.entity.Troop;
 
 import java.util.List;
 

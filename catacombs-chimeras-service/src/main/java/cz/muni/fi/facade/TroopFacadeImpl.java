@@ -9,6 +9,7 @@ import static org.apache.commons.lang3.Validate.notNull;
 import cz.muni.fi.dto.HeroDTO;
 import cz.muni.fi.dto.TroopCreateDTO;
 import cz.muni.fi.dto.TroopDTO;
+import cz.muni.fi.dto.TroopWealthDTO;
 import cz.muni.fi.dto.TroopsAvgExpReportDTO;
 import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Troop;
@@ -89,6 +90,11 @@ public class TroopFacadeImpl implements TroopFacade {
     @Override
     public TroopsAvgExpReportDTO countTroopsAverageExperienceReport() {
         return troopService.countTroopsAverageExperienceReport();
+    }
+
+    @Override
+    public TroopWealthDTO getMoneyPerHeroList() {
+        return troopService.getMoneyPerHeroList();
     }
 
     private Troop convertToEntity(final TroopDTO troopDTO) {

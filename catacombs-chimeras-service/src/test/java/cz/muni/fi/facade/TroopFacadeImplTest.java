@@ -213,10 +213,16 @@ public class TroopFacadeImplTest {
     }
 
     @Test
-    public void countTroopsAverageExperienceReport() throws Exception {
+    public void testCountTroopsAverageExperienceReport() throws Exception {
         troopFacade.countTroopsAverageExperienceReport();
 
         verify(troopService, times(1)).countTroopsAverageExperienceReport();
     }
 
+    @Test
+    public void testGetMoneyPerHeroList() throws Exception {
+        troopFacade.getMoneyPerHeroList();
+        
+        verify(troopService, times(1)).getMoneyPerHeroList();
+    }
 }

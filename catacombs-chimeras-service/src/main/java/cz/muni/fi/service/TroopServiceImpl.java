@@ -9,6 +9,8 @@ import static org.apache.commons.lang3.Validate.notNull;
 import cz.muni.fi.dao.HeroDao;
 import cz.muni.fi.dao.TroopDao;
 import cz.muni.fi.dto.TroopDTO;
+import cz.muni.fi.dto.TroopWealthDTO;
+import cz.muni.fi.dto.TroopWealthItemDTO;
 import cz.muni.fi.dto.TroopsAvgExpReportDTO;
 import cz.muni.fi.dto.TroopsAvgExpReportItemDTO;
 import cz.muni.fi.entity.Hero;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Service
@@ -142,6 +145,21 @@ public class TroopServiceImpl implements TroopService {
         return new TroopsAvgExpReportDTO(listOfReportItems,
                 (listOfReportItems.isEmpty()) ? 0 : listOfReportItems.get(listOfReportItems.size() - 1).getAverage(),
                 (listOfReportItems.isEmpty()) ? 0 : listOfReportItems.get(0).getAverage());
+    }
+    
+    @Override
+    public TroopWealthDTO getMoneyPerHeroList() {
+        List<TroopWealthItemDTO> troops = new ArrayList<>();
+        for(Troop troop : findAllTroops()) {
+            if(troop.getHeroes().isEmpty() || troop.getAmountOfMoney() == null) {
+                troops.add(new TroopWealthItemDTO(convertToDTO(troop), new Double(0)));
+            } else {
+                Double moneyPerHero = new Double(troop.getAmountOfMoney().doubleValue() / troop.getHeroes().size());
+                troops.add(new TroopWealthItemDTO(convertToDTO(troop), moneyPerHero));
+            }
+        }
+        Collections.sort(troops, (x, y) -> x.getMoneyPerHero().compareTo(y.getMoneyPerHero())); 
+        return new TroopWealthDTO(troops);
     }
 
     private TroopDTO convertToDTO(final Troop troop) {

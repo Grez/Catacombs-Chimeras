@@ -16,6 +16,7 @@ import static org.mockito.Mockito.when;
 
 import cz.muni.fi.dao.HeroDao;
 import cz.muni.fi.dao.TroopDao;
+import cz.muni.fi.dto.TroopWealthDTO;
 import cz.muni.fi.dto.TroopsAvgExpReportDTO;
 import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Troop;
@@ -266,5 +267,79 @@ public class TroopServiceImplTest {
         assertThat(troopReport.getHighestAverageExperience(), is(0.0));
         assertThat(troopReport.getLowestAverageExperience(), is(0.0));
         assertThat(troopReport.getReportItems(), hasSize(0));
+    }
+    
+    @Test
+    public void testGetMoneyPerHeroList() {
+        Hero heroA = new Hero("A");
+        heroA.setId(1L);
+        Hero heroB = new Hero("B");
+        heroB.setId(2L);
+        Hero heroC = new Hero("C");
+        heroC.setId(3L);
+        Hero heroD = new Hero("D");
+        heroD.setId(4L);
+        Hero heroE = new Hero("E");
+        heroE.setId(5L);
+        Hero heroG = new Hero("G");
+        heroG.setId(6L);
+        
+        Troop alfa = new Troop("alfa");
+        alfa.setId(1L);
+        alfa.setAmountOfMoney(2L);
+        alfa.addHero(heroA);
+        alfa.addHero(heroB);
+        alfa.addHero(heroC);
+        
+        Troop beta = new Troop("beta");
+        beta.setId(2L);
+        beta.setAmountOfMoney(120L);
+        beta.addHero(heroD);
+        beta.addHero(heroE);
+
+        Troop gamma = new Troop("gamma");
+        gamma.setId(3L);
+        gamma.setAmountOfMoney(150L);
+        gamma.addHero(heroG);
+        
+        final List list = Arrays.asList(alfa, beta, gamma);
+        when(troopDao.findAll()).thenReturn(list);
+        
+        TroopWealthDTO troopWealth = troopService.getMoneyPerHeroList();
+        assertThat(troopWealth.getTroopWealthList().size(), is(equalTo(3)));
+        assertThat(troopWealth.getNumberOfTroops(), is(equalTo(3)));
+        assertThat(troopWealth.getTroopWealthList().get(0).getMoneyPerHero(), is(2.0/3));
+        assertThat(troopWealth.getTroopWealthList().get(1).getMoneyPerHero(), is(120.0/2));
+        assertThat(troopWealth.getTroopWealthList().get(2).getMoneyPerHero(), is(150.0));
+        assertThat(troopWealth.getMaximumMoneyPerHero(), is(150.0));
+        assertThat(troopWealth.getMinimumMoneyPerHero(), is(2.0/3));
+    }
+    
+    @Test
+    public void testGetMoneyPerHeroListNoMoney() {
+        Hero heroG = new Hero("G");
+        heroG.setId(6L);
+        
+        Troop gamma = new Troop("gamma");
+        gamma.setId(new Long(0));
+        gamma.addHero(heroG);
+        
+        final List list = Arrays.asList(gamma);
+        when(troopDao.findAll()).thenReturn(list);
+        
+        TroopWealthDTO troopWealth = troopService.getMoneyPerHeroList();
+        assertThat(troopWealth.getTroopWealthList().size(), is(equalTo(1)));
+        assertThat(troopWealth.getNumberOfTroops(), is(equalTo(1)));
+        assertThat(troopWealth.getTroopWealthList().get(0).getMoneyPerHero(), is(0.0));
+        assertThat(troopWealth.getMaximumMoneyPerHero(), is(0.0));
+        assertThat(troopWealth.getMinimumMoneyPerHero(), is(0.0));
+    }
+    
+    @Test
+    public void testGetMoneyPerHeroListNoTroops() {
+        when(troopDao.findAll()).thenReturn(Collections.emptyList());
+        
+        TroopWealthDTO troopWealth = troopService.getMoneyPerHeroList();
+        assertThat(troopWealth.getTroopWealthList().size(), is(equalTo(0)));
     }
 }

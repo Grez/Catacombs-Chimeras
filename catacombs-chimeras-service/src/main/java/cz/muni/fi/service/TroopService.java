@@ -3,6 +3,8 @@
  */
 package cz.muni.fi.service;
 
+
+import cz.muni.fi.dto.TroopWealthDTO;
 import cz.muni.fi.dto.TroopsAvgExpReportDTO;
 import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Troop;
@@ -69,7 +71,6 @@ public interface TroopService {
      */
     List<Hero> getTroopHeroes(final Long id);
 
-
     /**
      * report based on all troops, it counts average experience level of heroes in each troop, where
      * if troop has more than two heroes, heroes with highest and lowest experience are
@@ -78,4 +79,12 @@ public interface TroopService {
      * @return report based on average experience level of heroes in each troop
      */
     TroopsAvgExpReportDTO countTroopsAverageExperienceReport();
+    
+    /**
+     * it takes all troops and count its money per hero
+     * (money of troop divided by number of heroes in the troop)
+     * and sort the troops in the list according to how much money for a hero they have.
+     * @return report with list of troops sorted by amount of money per hero in the troop
+     */
+    TroopWealthDTO getMoneyPerHeroList();
 }

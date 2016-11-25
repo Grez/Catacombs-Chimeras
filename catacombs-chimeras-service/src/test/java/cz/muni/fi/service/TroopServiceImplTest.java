@@ -213,10 +213,10 @@ public class TroopServiceImplTest {
         TroopsAvgExpReportDTO troopReport = troopService.countTroopsAverageExperienceReport();
         assertThat(troopReport.getHighestAverageExperience(), is(222.0));
         assertThat(troopReport.getLowestAverageExperience(), is(9.0));
-        assertThat(troopReport.getTroops(), hasSize(3));
-        assertThat(troopReport.getTroops().get(0).getAverage(), is(9.0));
-        assertThat(troopReport.getTroops().get(1).getAverage(), is(14.0));
-        assertThat(troopReport.getTroops().get(2).getAverage(), is(222.0));
+        assertThat(troopReport.getReportItems(), hasSize(3));
+        assertThat(troopReport.getReportItems().get(0).getAverage(), is(9.0));
+        assertThat(troopReport.getReportItems().get(1).getAverage(), is(14.0));
+        assertThat(troopReport.getReportItems().get(2).getAverage(), is(222.0));
     }
 
     @Test
@@ -253,11 +253,11 @@ public class TroopServiceImplTest {
         TroopsAvgExpReportDTO troopReport = troopService.countTroopsAverageExperienceReport();
         assertThat(troopReport.getHighestAverageExperience(), is(222.0));
         assertThat(troopReport.getLowestAverageExperience(), is(0.0));
-        assertThat(troopReport.getTroops().size(), is(equalTo(4)));
-        assertThat(troopReport.getTroops().get(0).getAverage(), is(0.0));
-        assertThat(troopReport.getTroops().get(1).getAverage(), is(0.0));
-        assertThat(troopReport.getTroops().get(2).getAverage(), is(9.0));
-        assertThat(troopReport.getTroops().get(3).getAverage(), is(222.0));
+        assertThat(troopReport.getReportItems().size(), is(equalTo(4)));
+        assertThat(troopReport.getReportItems().get(0).getAverage(), is(0.0));
+        assertThat(troopReport.getReportItems().get(1).getAverage(), is(0.0));
+        assertThat(troopReport.getReportItems().get(2).getAverage(), is(9.0));
+        assertThat(troopReport.getReportItems().get(3).getAverage(), is(222.0));
     }
 
     @Test
@@ -266,7 +266,7 @@ public class TroopServiceImplTest {
         TroopsAvgExpReportDTO troopReport = troopService.countTroopsAverageExperienceReport();
         assertThat(troopReport.getHighestAverageExperience(), is(0.0));
         assertThat(troopReport.getLowestAverageExperience(), is(0.0));
-        assertThat(troopReport.getTroops(), hasSize(0));
+        assertThat(troopReport.getReportItems(), hasSize(0));
     }
     
     @Test

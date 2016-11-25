@@ -25,12 +25,15 @@ public class RoleDTO {
         return name;
     }
 
+    /**
+     * @return String|null
+     */
     public String getDescription() {
         return description;
     }
 
     public void setName(final String name) {
-        this.name = name;
+        this.name = notNull(name);
     }
 
     public void setDescription(final String description) {
@@ -39,10 +42,13 @@ public class RoleDTO {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (o == null || getClass() != o.getClass())
+        }
+
+        if (o == null || getClass() != o.getClass()) {
             return false;
+        }
 
         final RoleDTO roleDTO = (RoleDTO) o;
 

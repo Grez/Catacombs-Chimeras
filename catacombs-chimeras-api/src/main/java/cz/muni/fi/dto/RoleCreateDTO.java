@@ -6,6 +6,7 @@ package cz.muni.fi.dto;
 import static org.apache.commons.lang3.Validate.notNull;
 
 public class RoleCreateDTO {
+
     private String name;
     private String description;
 
@@ -18,16 +19,11 @@ public class RoleCreateDTO {
         return name;
     }
 
+    /**
+     * @return String|null
+     */
     public String getDescription() {
         return description;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    public void setDescription(final String description) {
-        this.description = description;
     }
 
     @Override

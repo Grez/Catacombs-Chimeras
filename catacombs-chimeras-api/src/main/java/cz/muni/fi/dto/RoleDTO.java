@@ -5,13 +5,21 @@ package cz.muni.fi.dto;
 
 import static org.apache.commons.lang3.Validate.notNull;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class RoleDTO {
 
     private String name;
     private String description;
     private Long id;
 
-    public RoleDTO(final Long id, final String name, final String description) {
+    @JsonCreator
+    public RoleDTO(@JsonProperty("id") final Long id,
+                   @JsonProperty("name") final String name,
+                   @JsonProperty("description") final String description) {
         this.id = notNull(id);
         this.name = notNull(name);
         this.description = description;

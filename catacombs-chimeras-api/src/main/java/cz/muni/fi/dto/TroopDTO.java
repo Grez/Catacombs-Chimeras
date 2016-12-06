@@ -5,6 +5,11 @@ package cz.muni.fi.dto;
 
 import static org.apache.commons.lang3.Validate.notNull;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TroopDTO {
 
     private Long id;
@@ -15,7 +20,11 @@ public class TroopDTO {
 
     private Long amountOfMoney;
 
-    public TroopDTO(final Long id, final String name, final String mission, final Long amountOfMoney) {
+    @JsonCreator
+    public TroopDTO(@JsonProperty("id") final Long id,
+                    @JsonProperty("name") final String name,
+                    @JsonProperty("mission") final String mission,
+                    @JsonProperty("amountOfMoney") final Long amountOfMoney) {
         this.id = notNull(id);
         this.name = notNull(name);
         this.mission = mission;

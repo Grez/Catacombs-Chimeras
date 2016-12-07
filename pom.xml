@@ -4,6 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.4.2.RELEASE</version>
+    </parent>
+
     <groupId>cz.muni.fi</groupId>
     <artifactId>catacombs-chimeras</artifactId>
     <packaging>pom</packaging>
@@ -13,6 +19,7 @@
         <module>catacombs-chimeras-persistence</module>
         <module>catacombs-chimeras-service</module>
         <module>catacombs-chimeras-api</module>
+        <module>catacombs-chimeras-app</module>
     </modules>
 
     <dependencyManagement>
@@ -85,6 +92,18 @@
                 <artifactId>mockito-all</artifactId>
                 <version>1.10.19</version>
                 <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>1.7.3</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>1.1.0.Final</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

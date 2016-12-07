@@ -5,6 +5,11 @@ package cz.muni.fi.dto;
 
 import static org.apache.commons.lang3.Validate.notNull;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class HeroDTO {
 
     private String name;
@@ -12,7 +17,11 @@ public class HeroDTO {
     private Long troopId;
     private Long id;
 
-    public HeroDTO(final Long id, final String name, final Long experience, final Long troopId) {
+    @JsonCreator
+    public HeroDTO(@JsonProperty("id") final Long id,
+                   @JsonProperty("name") final String name,
+                   @JsonProperty("experience") final Long experience,
+                   @JsonProperty("troopId") final Long troopId) {
         this.id = notNull(id);
         this.name = notNull(name);
         this.experience = notNull(experience);

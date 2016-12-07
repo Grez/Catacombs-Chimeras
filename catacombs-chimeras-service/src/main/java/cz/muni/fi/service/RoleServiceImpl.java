@@ -15,8 +15,9 @@ import java.util.Set;
 
 import static org.apache.commons.lang3.Validate.notNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class RoleServiceImpl implements RoleService {
     
     private final RoleDao roleDao;

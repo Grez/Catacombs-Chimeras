@@ -62,12 +62,13 @@ public class Application extends SpringBootServletInitializer {
             heroFacade.addHeroRole(batman.getId(), philanthropist.getId());
             heroFacade.addHeroRole(batman.getId(), playboy.getId());
             heroFacade.addHeroRole(batman.getId(), pacifist.getId());
+            heroFacade.addHeroRole(batman.getId(), human.getId());
             troopFacade.addTroopHero(justiceLeague.getId(), batman.getId());
-
 
             heroFacade.addHeroRole(ironman.getId(), billionaire.getId());
             heroFacade.addHeroRole(ironman.getId(), philanthropist.getId());
             heroFacade.addHeroRole(ironman.getId(), playboy.getId());
+            heroFacade.addHeroRole(ironman.getId(), human.getId());
             troopFacade.addTroopHero(avengers.getId(), ironman.getId());
 
             heroFacade.addHeroRole(captainAmerica.getId(), human.getId());

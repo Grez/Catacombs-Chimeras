@@ -11,7 +11,7 @@ import cz.muni.fi.dto.HeroDTO;
 import cz.muni.fi.dto.RoleDTO;
 import cz.muni.fi.entity.Hero;
 import cz.muni.fi.service.HeroService;
-import cz.muni.fi.service.TroopService;
+import cz.muni.fi.service.MappingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,47 +24,49 @@ import java.util.stream.Collectors;
 public class HeroFacadeImpl implements HeroFacade {
 
     private final HeroService heroService;
-    private final TroopService troopService;
+    private final MappingService mappingService;
 
     @Autowired
-    public HeroFacadeImpl(final HeroService heroService, final TroopService troopService) {
+    public HeroFacadeImpl(final HeroService heroService, final MappingService mappingService) {
         notNull(heroService);
-        notNull(troopService);
+        notNull(mappingService);
         this.heroService = heroService;
-        this.troopService = troopService;
+        this.mappingService = mappingService;
     }
 
     @Override
     public HeroDTO findHeroById(final Long heroId) {
         notNull(heroId);
         final Hero hero = heroService.findHeroById(heroId);
-        return convertToDTO(hero);
+        return mappingService.convertToDTO(hero);
     }
 
     @Override
     public HeroDTO findHeroByName(final String name) {
         notEmpty(name);
         final Hero hero = heroService.findHeroByName(name);
-        return convertToDTO(hero);
+        return mappingService.convertToDTO(hero);
     }
 
     @Override
     public List<HeroDTO> findAllHeroes() {
         List<Hero> heroes = heroService.findAllHeroes();
-        return heroes.stream().map(this::convertToDTO).collect(Collectors.toList());
+        return heroes.stream().map(mappingService::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
     public HeroDTO createHero(final HeroCreateDTO hero) {
         notNull(hero);
-        final Hero heroEntity = convertToEntity(hero);
-        return convertToDTO(heroService.createHero(heroEntity));
+        final Hero heroEntity = mappingService.convertToEntity(hero);
+        return mappingService.convertToDTO(heroService.createHero(heroEntity));
     }
 
     @Override
     public void updateHero(final HeroDTO hero) {
         notNull(hero);
-        final Hero heroEntity = convertToEntity(hero);
+        final Hero heroEntity = mappingService.convertToEntity(hero);
+        List<RoleDTO> heroRoles = getHeroRoles(hero.getId());
+        heroRoles.forEach(role -> heroEntity.addRole(mappingService.convertToEntity(role)));
         heroService.updateHero(heroEntity);
     }
 
@@ -91,32 +93,6 @@ public class HeroFacadeImpl implements HeroFacade {
     @Override
     public List<RoleDTO> getHeroRoles(final Long heroId) {
         notNull(heroId);
-        return heroService.getHeroRoles(heroId).stream().map(RoleFacadeImpl::convertToDTO).collect(Collectors.toList());
-    }
-
-    private Hero convertToEntity(final HeroDTO heroDTO) {
-        final Hero hero = new Hero();
-        hero.setId(heroDTO.getId());
-        hero.setExperience(heroDTO.getExperience());
-        hero.setName(heroDTO.getName());
-        hero.setTroop((heroDTO.getTroopId() != null) ? troopService.findTroopById(heroDTO.getTroopId()) : null);
-        return hero;
-    }
-
-    private Hero convertToEntity(final HeroCreateDTO heroCreateDTO) {
-        final Hero hero = new Hero();
-        hero.setExperience(heroCreateDTO.getExperience());
-        hero.setName(heroCreateDTO.getName());
-        hero.setTroop((heroCreateDTO.getTroopId() != null) ? troopService.findTroopById(heroCreateDTO.getTroopId()) : null);
-        return hero;
-    }
-
-    private HeroDTO convertToDTO(final Hero hero) {
-        return new HeroDTO(
-                hero.getId(),
-                hero.getName(),
-                hero.getExperience(),
-                (hero.getTroop() != null) ? hero.getTroop().getId() : null
-        );
+        return heroService.getHeroRoles(heroId).stream().map(mappingService::convertToDTO).collect(Collectors.toList());
     }
 }

@@ -3,6 +3,7 @@
  */
 package cz.muni.fi.service;
 
+import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Role;
 
 import java.util.List;
@@ -50,4 +51,11 @@ public interface RoleService {
      * @throws cz.muni.fi.exceptions.NotFoundException when role with id not found
      */
     void removeRole(final Long id);
+
+    /**
+     * find all heroes associated with role
+     * @param id of role
+     * @return list of heroes
+     */
+    List<Hero> findHeroesWithRole(final Long id);
 }

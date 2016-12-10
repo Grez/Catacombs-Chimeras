@@ -11,9 +11,8 @@ import cz.muni.fi.dto.TroopCreateDTO;
 import cz.muni.fi.dto.TroopDTO;
 import cz.muni.fi.dto.TroopWealthDTO;
 import cz.muni.fi.dto.TroopsAvgExpReportDTO;
-import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Troop;
-import cz.muni.fi.exceptions.NotFoundException;
+import cz.muni.fi.service.MappingService;
 import cz.muni.fi.service.TroopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,44 +26,49 @@ import java.util.stream.Collectors;
 public class TroopFacadeImpl implements TroopFacade {
 
     private final TroopService troopService;
+    private final MappingService mappingService;
 
     @Autowired
-    public TroopFacadeImpl(final TroopService troopService) {
+    public TroopFacadeImpl(final TroopService troopService, final MappingService mappingService) {
         notNull(troopService);
+        notNull(mappingService);
         this.troopService = troopService;
+        this.mappingService = mappingService;
     }
 
     @Override
     public TroopDTO findTroopById(final Long troopId) {
         notNull(troopId);
         final Troop troop = troopService.findTroopById(troopId);
-        return convertToDTO(troop);
+        return mappingService.convertToDTO(troop);
     }
 
     @Override
     public TroopDTO findTroopByName(final String name) {
         notEmpty(name);
         final Troop troop = troopService.findTroopByName(name);
-        return convertToDTO(troop);
+        return mappingService.convertToDTO(troop);
     }
 
     @Override
     public List<TroopDTO> findAllTroops() {
         List<Troop> troops = troopService.findAllTroops();
-        return troops.stream().map(this::convertToDTO).collect(Collectors.toList());
+        return troops.stream().map(mappingService::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
     public TroopDTO createTroop(final TroopCreateDTO troop) {
         notNull(troop);
-        final Troop troopEntity = convertToEntity(troop);
-        return convertToDTO(troopService.createTroop(troopEntity));
+        final Troop troopEntity = mappingService.convertToEntity(troop);
+        return mappingService.convertToDTO(troopService.createTroop(troopEntity));
     }
 
     @Override
     public void updateTroop(final TroopDTO troop) {
         notNull(troop);
-        final Troop troopEntity = convertToEntity(troop);
+        final Troop troopEntity = mappingService.convertToEntity(troop);
+        List<HeroDTO> heroes = getTroopHeroes(troopEntity.getId());
+        heroes.forEach(hero -> troopEntity.addHero(mappingService.convertToEntity(hero)));
         troopService.updateTroop(troopEntity);
     }
 
@@ -84,7 +88,7 @@ public class TroopFacadeImpl implements TroopFacade {
     @Override
     public List<HeroDTO> getTroopHeroes(final Long troopId) {
         notNull(troopId);
-        return troopService.getTroopHeroes(troopId).stream().map(this::convertToDTO).collect(Collectors.toList());
+        return troopService.getTroopHeroes(troopId).stream().map(mappingService::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -97,38 +101,5 @@ public class TroopFacadeImpl implements TroopFacade {
         return troopService.getMoneyPerHeroList();
     }
 
-    private Troop convertToEntity(final TroopDTO troopDTO) {
-        final Troop troop = new Troop();
-        troop.setId(troopDTO.getId());
-        troop.setName(troopDTO.getName());
-        troop.setMission(troopDTO.getMission());
-        troop.setAmountOfMoney(troopDTO.getAmountOfMoney());
-        return troop;
-    }
 
-    private Troop convertToEntity(final TroopCreateDTO troopCreateDTO) {
-        final Troop troop = new Troop();
-        troop.setMission(troopCreateDTO.getMission());
-        troop.setName(troopCreateDTO.getName());
-        troop.setAmountOfMoney(troopCreateDTO.getAmountOfMoney());
-        return troop;
-    }
-
-    private TroopDTO convertToDTO(final Troop troop) {
-        return new TroopDTO(
-                troop.getId(),
-                troop.getName(),
-                troop.getMission(),
-                troop.getAmountOfMoney()
-        );
-    }
-
-    private HeroDTO convertToDTO(final Hero hero) {
-        return new HeroDTO(
-                hero.getId(),
-                hero.getName(),
-                hero.getExperience(),
-                (hero.getTroop() != null) ? hero.getTroop().getId() : null
-        );
-    }
 }

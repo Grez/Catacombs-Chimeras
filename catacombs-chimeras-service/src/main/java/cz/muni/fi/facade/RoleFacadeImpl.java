@@ -3,9 +3,11 @@
  */
 package cz.muni.fi.facade;
 
+import cz.muni.fi.dto.HeroDTO;
 import cz.muni.fi.dto.RoleCreateDTO;
 import cz.muni.fi.dto.RoleDTO;
 import cz.muni.fi.entity.Role;
+import cz.muni.fi.service.MappingService;
 import cz.muni.fi.service.RoleService;
 
 import java.util.List;
@@ -24,44 +26,50 @@ import org.springframework.transaction.annotation.Transactional;
 public class RoleFacadeImpl implements RoleFacade {
     
     private final RoleService roleService;
+    private final MappingService mappingService;
     
     @Autowired
-    public RoleFacadeImpl(final RoleService roleService) {
+    public RoleFacadeImpl(final RoleService roleService, final MappingService mappingService) {
         notNull(roleService);
+        notNull(mappingService);
         this.roleService = roleService;
+        this.mappingService = mappingService;
     }
 
     @Override
     public RoleDTO findRoleById(final Long roleId) {
         notNull(roleId);
         final Role role = roleService.findRoleById(roleId);
-        return convertToDTO(role);
+        return mappingService.convertToDTO(role);
     }
 
     @Override
     public RoleDTO findRoleByName(final String name) {
         notEmpty(name);
         final Role role = roleService.findRoleByName(name);
-        return convertToDTO(role);
+        return mappingService.convertToDTO(role);
     }
 
     @Override
     public List<RoleDTO> findAllRoles() {
         List<Role> roles = roleService.findAllRoles();
-        return roles.stream().map(RoleFacadeImpl::convertToDTO).collect(Collectors.toList());
+        return roles.stream().map(mappingService::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
     public RoleDTO createRole(final RoleCreateDTO role) {
         notNull(role);
-        final Role roleEntity = convertToEntity(role);
-        return convertToDTO(roleService.createRole(roleEntity));
+        final Role roleEntity = mappingService.convertToEntity(role);
+        return mappingService.convertToDTO(roleService.createRole(roleEntity));
     }
 
     @Override
     public void updateRole(final RoleDTO role) {
         notNull(role);
-        final Role roleEntity = convertToEntity(role);
+        final Role roleEntity = mappingService.convertToEntity(role);
+        List<HeroDTO> heroesWithRole = findHeroesWithRole(role.getId());
+        heroesWithRole.forEach(hero -> roleEntity.addHero(mappingService.convertToEntity(hero)));
+
         roleService.updateRole(roleEntity);
     }
 
@@ -71,22 +79,8 @@ public class RoleFacadeImpl implements RoleFacade {
         roleService.removeRole(id);
     }
 
-    static Role convertToEntity(final RoleDTO roleDTO) {
-        final Role role = new Role();
-        role.setId(roleDTO.getId());
-        role.setName(roleDTO.getName());
-        role.setDescription(roleDTO.getDescription());
-        return role;
-    }
-
-    static Role convertToEntity(final RoleCreateDTO roleCreateDTO) {
-        final Role role = new Role();
-        role.setName(roleCreateDTO.getName());
-        role.setDescription(roleCreateDTO.getDescription());
-        return role;
-    }
-
-    static RoleDTO convertToDTO(final Role role) {
-        return new RoleDTO(role.getId(), role.getName(), role.getDescription());
+    @Override
+    public List<HeroDTO> findHeroesWithRole(final Long id) {
+        return roleService.findHeroesWithRole(id).stream().map(mappingService::convertToDTO).collect(Collectors.toList());
     }
 }

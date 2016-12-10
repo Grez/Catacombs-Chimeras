@@ -10,40 +10,46 @@
 
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+                <form method="get" action="${pageContext.request.contextPath}/hero/update/new/${hero.id}">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
                 <form method="post" action="${pageContext.request.contextPath}/hero/delete/${hero.id}">
                     <button type="submit" class="btn btn-primary">Delete</button>
                 </form>
             </div>
 
             <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
-                <form method="post" action="${pageContext.request.contextPath}/hero/remove/${hero.id}">
-                    <button type="submit" class="btn btn-primary">Remove From Troop</button>
+                <form method="post" action="${pageContext.request.contextPath}/hero/${hero.id}/troop/remove/">
+                    <button type="submit" class="btn btn-primary">Leave troop</button>
                 </form>
             </div>
 
             <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
-                <form method="post" action="${pageContext.request.contextPath}/hero/troop/${hero.id}">
-                    <button type="submit" class="btn btn-primary">Add To Troop</button>
+                <form method="get" action="${pageContext.request.contextPath}/hero/${hero.id}/troop/">
+                    <button type="submit" class="btn btn-primary">Join troop</button>
                 </form>
             </div>
         </div>
 
         <table class="table">
             <thead>
-                <tr>
-                    <th>id</th>
-                    <th>name</th>
-                    <th>experience</th>
-                    <th>troop name</th>
-                </tr>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>experience</th>
+                <th>troop name</th>
+            </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>${hero.id}</td>
-                    <td><c:out value="${hero.name}"/></td>
-                    <td><c:out value="${hero.experience}"/></td>
-                    <td><c:out value="${troopName}"/></td>
-                </tr>
+            <tr>
+                <td>${hero.id}</td>
+                <td><c:out value="${hero.name}"/></td>
+                <td><c:out value="${hero.experience}"/></td>
+                <td><c:out value="${troopName}"/></td>
+            </tr>
             </tbody>
         </table>
 
@@ -78,4 +84,3 @@
 
     </jsp:attribute>
 </my:pagetemplate>
-    

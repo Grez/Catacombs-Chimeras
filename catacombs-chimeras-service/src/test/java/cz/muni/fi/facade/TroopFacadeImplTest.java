@@ -7,6 +7,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -19,6 +20,7 @@ import cz.muni.fi.entity.Troop;
 import cz.muni.fi.entity.Hero;
 import cz.muni.fi.exceptions.NotFoundException;
 import cz.muni.fi.service.HeroService;
+import cz.muni.fi.service.MappingService;
 import cz.muni.fi.service.TroopService;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -53,6 +55,9 @@ public class TroopFacadeImplTest {
     private TroopService troopService;
 
     @Mock
+    private MappingService mappingService;
+
+    @Mock
     private HeroService heroService;
 
     private Troop troop;
@@ -65,7 +70,7 @@ public class TroopFacadeImplTest {
     @BeforeMethod
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        troopFacade = new TroopFacadeImpl(troopService);
+        troopFacade = new TroopFacadeImpl(troopService, mappingService);
         troop = new Troop(TROOP_NAME);
         troop.setId(TROOP_ID);
         troop.setMission(TROOP_MISSION);
@@ -79,10 +84,21 @@ public class TroopFacadeImplTest {
         hero1.setExperience(HERO1_EXPERIENCE);
         hero1.setTroop(troop);
 
+        final HeroDTO hero1DTO = new HeroDTO(HERO1_ID, HERO1_NAME, HERO1_EXPERIENCE, troop.getId());
+
         hero2 = new Hero(HERO2_NAME);
         hero2.setId(HERO2_ID);
         hero2.setExperience(HERO2_EXPERIENCE);
         hero2.setTroop(troop);
+
+        final HeroDTO hero2DTO = new HeroDTO(HERO2_ID, HERO2_NAME, HERO2_EXPERIENCE, troop.getId());
+
+
+        doReturn(troop).when(mappingService).convertToEntity(troopDTO);
+        doReturn(troop).when(mappingService).convertToEntity(troopToCreate);
+        doReturn(troopDTO).when(mappingService).convertToDTO(troop);
+        doReturn(hero1DTO).when(mappingService).convertToDTO(hero1);
+        doReturn(hero2DTO).when(mappingService).convertToDTO(hero2);
     }
 
     @Test

@@ -9,6 +9,7 @@ import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Role;
 import cz.muni.fi.exceptions.NotFoundException;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -82,5 +83,15 @@ public class RoleServiceImpl implements RoleService {
             heroDao.update(hero);
         });
         roleDao.delete(role);
+    }
+
+    @Override
+    public List<Hero> findHeroesWithRole(final Long id) {
+        notNull(id);
+        final Role role = roleDao.findById(id);
+        if (role == null) {
+            throw new NotFoundException("Role with ID: " + id + " not found");
+        }
+        return new ArrayList<>(role.getHeroes());
     }
 }

@@ -60,11 +60,11 @@
 </my:a>
 <table border="1" cellpadding="5" width="300" class="table">
     <thead>
-    <tr>
-        <th>id</th>
-        <th>name</th>
-        <th>description</th>
-    </tr>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>description</th>
+        </tr>
     </thead>
     <tbody>
     <c:forEach items="${roles}" var="role">

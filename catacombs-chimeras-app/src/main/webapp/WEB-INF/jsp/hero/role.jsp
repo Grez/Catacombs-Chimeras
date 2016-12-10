@@ -11,12 +11,12 @@
 
         <form:form method="post" action="${pageContext.request.contextPath}/hero/${id}/role/add/"
                    modelAttribute="role" cssClass="form-horizontal">
-                <form:label path="name" cssClass="col-sm-2 control-label">Assign Role</form:label>
-                <div class="col-sm-10">
-                    <form:select id="name" path="name" name="name" class="form-control" required="required">
-                         <form:options items="${availableRoles}" itemValue="name" itemLabel="name"/>
-                    </form:select>
-                </div>
+            <form:label path="name" cssClass="col-sm-2 control-label">Assign Role</form:label>
+            <div class="col-sm-10">
+                <form:select id="name" path="name" name="name" class="form-control" required="required">
+                     <form:options items="${availableRoles}" itemValue="name" itemLabel="name"/>
+                </form:select>
+            </div>
             <button class="btn btn-primary" type="submit">Assign role</button>
         </form:form>
 

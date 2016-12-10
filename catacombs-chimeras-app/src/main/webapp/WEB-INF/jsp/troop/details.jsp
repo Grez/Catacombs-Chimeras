@@ -41,30 +41,30 @@
             </tbody>
         </table>
 
-<h2>Heroes</h2>
-<table border="1" cellpadding="5" width="300" class="table">
-    <thead>
-    <tr>
-        <th>id</th>
-        <th>name</th>
-        <th>experience</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach items="${troopHeroes}" var="hero">
-        <tr>
-            <td>${hero.id}</td>
-            <td>${hero.name}</td>
-            <td>${hero.experience}</td>
-            <td>
-                <form method="post" action="${pageContext.request.contextPath}/troop/${troop.id}/hero/remove/${hero.id}">
-                    <button type="submit" class="btn btn-primary">Remove</button>
-                </form>
-            </td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
+        <h2>Heroes</h2>
+        <table border="1" cellpadding="5" width="300" class="table">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>experience</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${troopHeroes}" var="hero">
+                <tr>
+                    <td>${hero.id}</td>
+                    <td>${hero.name}</td>
+                    <td>${hero.experience}</td>
+                    <td>
+                        <form method="post" action="${pageContext.request.contextPath}/troop/${troop.id}/hero/remove/${hero.id}">
+                            <button type="submit" class="btn btn-primary">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
 
     </jsp:attribute>
 </my:pagetemplate>

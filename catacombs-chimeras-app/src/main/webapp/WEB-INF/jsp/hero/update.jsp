@@ -8,32 +8,33 @@
 <my:pagetemplate title="Update hero">
     <jsp:attribute name="body">
 
-    <form:form method="post" action="${pageContext.request.contextPath}/hero/update/${heroId}"
-               modelAttribute="hero" cssClass="form-horizontal">
-        <div class="form-group ${name_error?'has-error':''}">
-            <form:label path="name" cssClass="col-sm-2 control-label">Name</form:label>
-            <div class="col-sm-10">
-                <form:input path="name" cssClass="form-control"/>
-                <form:errors path="name" cssClass="help-block"/>
-            </div>
-        </div>
-        <div class="form-group ${experience_error?'has-error':''}">
-            <form:label path="experience" cssClass="col-sm-2 control-label">Experience</form:label>
-            <div class="col-sm-10">
-                <form:input path="experience" cssClass="form-control"/>
-                <form:errors path="experience" cssClass="help-block"/>
-            </div>
-        </div>
-
-                <div hidden=true class="form-group ${experience_error?'has-error':''}">
-                    <form:label path="troopId" cssClass="col-sm-2 control-label">Troop ID</form:label>
-                    <div class="col-sm-10">
-                        <form:input path="troopId" cssClass="form-control"/>
-                        <form:errors path="troopId" cssClass="help-block"/>
-                    </div>
+        <form:form method="post" action="${pageContext.request.contextPath}/hero/update/${heroId}"
+                   modelAttribute="hero" cssClass="form-horizontal">
+            <div class="form-group ${name_error?'has-error':''}">
+                <form:label path="name" cssClass="col-sm-2 control-label">Name</form:label>
+                <div class="col-sm-10">
+                    <form:input path="name" cssClass="form-control"/>
+                    <form:errors path="name" cssClass="help-block"/>
                 </div>
-        <button class="btn btn-primary" type="submit">Update hero</button>
-    </form:form>
+            </div>
+
+            <div class="form-group ${experience_error?'has-error':''}">
+                <form:label path="experience" cssClass="col-sm-2 control-label">Experience</form:label>
+                <div class="col-sm-10">
+                    <form:input path="experience" cssClass="form-control"/>
+                    <form:errors path="experience" cssClass="help-block"/>
+                </div>
+            </div>
+
+            <div hidden=true class="form-group ${experience_error?'has-error':''}">
+                <form:label path="troopId" cssClass="col-sm-2 control-label">Troop ID</form:label>
+                <div class="col-sm-10">
+                    <form:input path="troopId" cssClass="form-control"/>
+                    <form:errors path="troopId" cssClass="help-block"/>
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Update hero</button>
+        </form:form>
 
     </jsp:attribute>
 </my:pagetemplate>

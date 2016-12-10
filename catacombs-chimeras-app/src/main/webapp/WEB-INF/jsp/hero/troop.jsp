@@ -11,12 +11,12 @@
 
         <form:form method="post" action="${pageContext.request.contextPath}/hero/${id}/troop/add"
                    modelAttribute="troop" cssClass="form-horizontal">
-                <form:label path="name" cssClass="col-sm-2 control-label">Join troop</form:label>
-                <div class="col-sm-10">
-                    <form:select id="name" path="name" name="name" class="form-control" required="required">
-                         <form:options items="${availableTroops}" itemValue="name" itemLabel="name"/>
-                    </form:select>
-                </div>
+            <form:label path="name" cssClass="col-sm-2 control-label">Join troop</form:label>
+            <div class="col-sm-10">
+                <form:select id="name" path="name" name="name" class="form-control" required="required">
+                     <form:options items="${availableTroops}" itemValue="name" itemLabel="name"/>
+                </form:select>
+            </div>
             <button class="btn btn-primary" type="submit">Join troop</button>
         </form:form>
 

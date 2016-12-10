@@ -5,11 +5,11 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<my:pagetemplate title="New hero">
+<my:pagetemplate title="Update hero">
     <jsp:attribute name="body">
 
-        <form:form method="post" action="${pageContext.request.contextPath}/hero/create"
-                   modelAttribute="heroCreate" cssClass="form-horizontal">
+        <form:form method="post" action="${pageContext.request.contextPath}/hero/update/${heroId}"
+                   modelAttribute="hero" cssClass="form-horizontal">
             <div class="form-group ${name_error?'has-error':''}">
                 <form:label path="name" cssClass="col-sm-2 control-label">Name</form:label>
                 <div class="col-sm-10">
@@ -17,6 +17,7 @@
                     <form:errors path="name" cssClass="help-block"/>
                 </div>
             </div>
+
             <div class="form-group ${experience_error?'has-error':''}">
                 <form:label path="experience" cssClass="col-sm-2 control-label">Experience</form:label>
                 <div class="col-sm-10">
@@ -24,7 +25,15 @@
                     <form:errors path="experience" cssClass="help-block"/>
                 </div>
             </div>
-            <button class="btn btn-primary" type="submit">Create hero</button>
+
+            <div hidden=true class="form-group ${experience_error?'has-error':''}">
+                <form:label path="troopId" cssClass="col-sm-2 control-label">Troop ID</form:label>
+                <div class="col-sm-10">
+                    <form:input path="troopId" cssClass="form-control"/>
+                    <form:errors path="troopId" cssClass="help-block"/>
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Update hero</button>
         </form:form>
 
     </jsp:attribute>

@@ -5,11 +5,11 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<my:pagetemplate title="New hero">
+<my:pagetemplate title="Update troop">
     <jsp:attribute name="body">
 
-        <form:form method="post" action="${pageContext.request.contextPath}/hero/create"
-                   modelAttribute="heroCreate" cssClass="form-horizontal">
+        <form:form method="post" action="${pageContext.request.contextPath}/troop/update/${troopId}"
+                   modelAttribute="troop" cssClass="form-horizontal">
             <div class="form-group ${name_error?'has-error':''}">
                 <form:label path="name" cssClass="col-sm-2 control-label">Name</form:label>
                 <div class="col-sm-10">
@@ -17,14 +17,23 @@
                     <form:errors path="name" cssClass="help-block"/>
                 </div>
             </div>
-            <div class="form-group ${experience_error?'has-error':''}">
-                <form:label path="experience" cssClass="col-sm-2 control-label">Experience</form:label>
+
+            <div class="form-group ${mission_error?'has-error':''}">
+                <form:label path="mission" cssClass="col-sm-2 control-label">Mission</form:label>
                 <div class="col-sm-10">
-                    <form:input path="experience" cssClass="form-control"/>
-                    <form:errors path="experience" cssClass="help-block"/>
+                    <form:input path="mission" cssClass="form-control"/>
+                    <form:errors path="mission" cssClass="help-block"/>
                 </div>
             </div>
-            <button class="btn btn-primary" type="submit">Create hero</button>
+
+            <div class="form-group ${experience_error?'has-error':''}">
+                <form:label path="amountOfMoney" cssClass="col-sm-2 control-label">Money</form:label>
+                <div class="col-sm-10">
+                    <form:input path="amountOfMoney" cssClass="form-control"/>
+                    <form:errors path="amountOfMoney" cssClass="help-block"/>
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Update troop</button>
         </form:form>
 
     </jsp:attribute>

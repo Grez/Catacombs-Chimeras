@@ -3,6 +3,7 @@
  */
 package cz.muni.fi.facade;
 
+import cz.muni.fi.dto.HeroDTO;
 import cz.muni.fi.dto.RoleCreateDTO;
 import cz.muni.fi.dto.RoleDTO;
 
@@ -48,4 +49,11 @@ public interface RoleFacade {
      * @param id of role to delete
      */
     void removeRole(final Long id);
+
+    /**
+     * find all heroes associated with role
+     * @param id of role
+     * @return list of heroes
+     */
+    List<HeroDTO> findHeroesWithRole(final Long id);
 }

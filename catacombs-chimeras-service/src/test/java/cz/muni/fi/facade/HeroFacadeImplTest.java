@@ -7,6 +7,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -19,7 +20,7 @@ import cz.muni.fi.entity.Hero;
 import cz.muni.fi.entity.Role;
 import cz.muni.fi.exceptions.NotFoundException;
 import cz.muni.fi.service.HeroService;
-import cz.muni.fi.service.TroopService;
+import cz.muni.fi.service.MappingService;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.testng.annotations.BeforeMethod;
@@ -46,7 +47,7 @@ public class HeroFacadeImplTest {
     private HeroService heroService;
 
     @Mock
-    private TroopService troopService;
+    private MappingService mappingService;
 
     private Hero hero;
     private HeroCreateDTO heroToCreate;
@@ -56,7 +57,7 @@ public class HeroFacadeImplTest {
     @BeforeMethod
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        heroFacade = new HeroFacadeImpl(heroService, troopService);
+        heroFacade = new HeroFacadeImpl(heroService, mappingService);
         hero = new Hero(NAME);
         hero.setId(ID);
         hero.setExperience(EXP);
@@ -67,6 +68,13 @@ public class HeroFacadeImplTest {
         role = new Role(ROLE_NAME);
         role.setId(ROLE_ID);
         role.setDescription(DESCRIPTION);
+
+        final RoleDTO roleDTO = new RoleDTO(ROLE_ID, ROLE_NAME, DESCRIPTION);
+
+        doReturn(hero).when(mappingService).convertToEntity(heroToCreate);
+        doReturn(hero).when(mappingService).convertToEntity(heroDTO);
+        doReturn(heroDTO).when(mappingService).convertToDTO(hero);
+        doReturn(roleDTO).when(mappingService).convertToDTO(role);
     }
 
     @Test

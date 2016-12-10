@@ -114,6 +114,7 @@ public class HeroServiceImplTest {
 
     @Test
     public void testUpdateHero() throws Exception {
+
         heroService.updateHero(hero);
 
         verify(heroDao, times(1)).update(hero);

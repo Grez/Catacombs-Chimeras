@@ -3,11 +3,11 @@
  */
 package cz.muni.fi.facade;
 
-import cz.muni.fi.dto.HeroDTO;
 import cz.muni.fi.dto.RoleCreateDTO;
 import cz.muni.fi.dto.RoleDTO;
 import cz.muni.fi.entity.Role;
 import cz.muni.fi.exceptions.NotFoundException;
+import cz.muni.fi.service.MappingService;
 import cz.muni.fi.service.RoleService;
 
 import java.util.Collections;
@@ -21,14 +21,11 @@ import org.testng.annotations.Test;
 import org.hamcrest.Matchers;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 
 public class RoleFacadeImplTest {
     
@@ -43,6 +40,9 @@ public class RoleFacadeImplTest {
     
     @Mock
     private RoleService roleService;
+
+    @Mock
+    private MappingService mappingService;
     
     private Role role;
     private RoleCreateDTO roleCreateDTO;
@@ -52,7 +52,7 @@ public class RoleFacadeImplTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         
-        roleFacade = new RoleFacadeImpl(roleService);
+        roleFacade = new RoleFacadeImpl(roleService, mappingService);
         
         role = new Role();
         role.setId(ID);
@@ -61,6 +61,10 @@ public class RoleFacadeImplTest {
         
         roleCreateDTO = new RoleCreateDTO(NAME, DESCRIPTION);
         roleDTO = new RoleDTO(ID, NAME, DESCRIPTION);
+
+        doReturn(role).when(mappingService).convertToEntity(roleCreateDTO);
+        doReturn(role).when(mappingService).convertToEntity(roleDTO);
+        doReturn(roleDTO).when(mappingService).convertToDTO(role);
     }
     
     @Test

@@ -34,21 +34,27 @@ public class Application extends SpringBootServletInitializer {
     @Bean
     public CommandLineRunner commandLineRunner(final HeroFacade heroFacade, final TroopFacade troopFacade, final RoleFacade roleFacade) {
         return args -> {
+            final HeroDTO superman = heroFacade.createHero(new HeroCreateDTO("Superman", 1000L));
+            final HeroDTO batman = heroFacade.createHero(new HeroCreateDTO("Batman", 120L));
+            final HeroDTO ironman = heroFacade.createHero(new HeroCreateDTO("Ironman", 95L));
+            final HeroDTO captainAmerica = heroFacade.createHero(new HeroCreateDTO("Captain America", 99L));
+            final HeroDTO joker = heroFacade.createHero(new HeroCreateDTO("Joker", 80L));
+            final HeroDTO sinestro = heroFacade.createHero(new HeroCreateDTO("Sinestro", 700L));
 
-            final HeroDTO superman = heroFacade.createHero(new HeroCreateDTO("Superman", 100L));
-            final HeroDTO batman = heroFacade.createHero(new HeroCreateDTO("Batman", 9999L));
-            final HeroDTO ironman = heroFacade.createHero(new HeroCreateDTO("Ironman", 50L));
+            final TroopDTO justiceLeague = troopFacade.createTroop(new TroopCreateDTO("Justice League", "Protect world!", 8000000000L));
+            final TroopDTO injusticeLeague = troopFacade.createTroop(new TroopCreateDTO("Injustice League", "Rule the world!", 500000L));
+            final TroopDTO avengers = troopFacade.createTroop(new TroopCreateDTO("Avengers", "Be cool!", 9000000000L));
 
-            final TroopDTO justiceLeague = troopFacade.createTroop(new TroopCreateDTO("Justice League", "Protect world!", 1000000000L));
-            final TroopDTO injusticeLeague = troopFacade.createTroop(new TroopCreateDTO("Injustice League", "Rule the world!", 999999L));
-            final TroopDTO avengers = troopFacade.createTroop(new TroopCreateDTO("Avengers", "Be cool!", 8421940123L));
-
-            final RoleDTO alien = roleFacade.createRole(new RoleCreateDTO("Kryptonian alien", "powered by sun, weakened by Kryptonite"));
+            final RoleDTO kryptonian = roleFacade.createRole(new RoleCreateDTO("Kryptonian alien", "powered by sun, weakened by Kryptonite"));
+            final RoleDTO alien = roleFacade.createRole(new RoleCreateDTO("Alien", "being not born on Earth"));
             final RoleDTO billionaire = roleFacade.createRole(new RoleCreateDTO("Billionaire", "very much money"));
             final RoleDTO philanthropist = roleFacade.createRole(new RoleCreateDTO("Philanthropist", "caring, nourishing"));
             final RoleDTO playboy = roleFacade.createRole(new RoleCreateDTO("Playboy", "have a lot of women"));
             final RoleDTO pacifist = roleFacade.createRole(new RoleCreateDTO("Pacifist", "does not kill"));
+            final RoleDTO human = roleFacade.createRole(new RoleCreateDTO("Human","only human"));
+            final RoleDTO superhuman = roleFacade.createRole(new RoleCreateDTO("Superhuman","human with super powers"));
 
+            heroFacade.addHeroRole(superman.getId(), kryptonian.getId());
             heroFacade.addHeroRole(superman.getId(), alien.getId());
             troopFacade.addTroopHero(justiceLeague.getId(), superman.getId());
 
@@ -64,6 +70,15 @@ public class Application extends SpringBootServletInitializer {
             heroFacade.addHeroRole(ironman.getId(), playboy.getId());
             troopFacade.addTroopHero(avengers.getId(), ironman.getId());
 
+            heroFacade.addHeroRole(captainAmerica.getId(), human.getId());
+            heroFacade.addHeroRole(captainAmerica.getId(), superhuman.getId());
+            troopFacade.addTroopHero(avengers.getId(), captainAmerica.getId());
+
+            heroFacade.addHeroRole(joker.getId(), human.getId());
+            troopFacade.addTroopHero(injusticeLeague.getId(), joker.getId());
+
+            heroFacade.addHeroRole(sinestro.getId(), alien.getId());
+            troopFacade.addTroopHero(injusticeLeague.getId(), sinestro.getId());
         };
     }
 }

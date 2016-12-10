@@ -13,6 +13,5 @@
             <p class="lead">This application allows you to organize your heroes into troops and manage troops.</p>
         </div>
 
-
     </jsp:attribute>
 </my:pagetemplate>

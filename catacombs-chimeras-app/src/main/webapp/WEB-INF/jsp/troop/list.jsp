@@ -5,12 +5,12 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<my:pagetemplate title="Heroes">
+<my:pagetemplate title="Troops">
     <jsp:attribute name="body">
 
-        <my:a href="/hero/new" class="btn btn-primary">
+        <my:a href="/troop/new" class="btn btn-primary">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            New hero
+            New troop
         </my:a>
 
         <table border="1" cellpadding="5" width="300" class="table">
@@ -18,22 +18,22 @@
             <tr>
                 <th>id</th>
                 <th>name</th>
-                <th>experience</th>
-                <th>troop name</th>
+                <th>mission</th>
+                <th>money</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${heroes}" var="pair">
+            <c:forEach items="${troops}" var="troop">
                 <tr>
-                    <td>${pair.hero.id}</td>
-                    <td>${pair.hero.name}</td>
-                    <td>${pair.hero.experience}</td>
-                    <td>${pair.troopName}</td>
+                    <td>${troop.id}</td>
+                    <td>${troop.name}</td>
+                    <td>${troop.mission}</td>
+                    <td>${troop.amountOfMoney}</td>
                     <td>
-                        <my:a href="/hero/details/${pair.hero.id}" class="btn btn-primary">Details</my:a>
+                        <my:a href="/troop/${troop.id}/details" class="btn btn-primary">Details</my:a>
                     </td>
                     <td>
-                        <form method="post" action="${pageContext.request.contextPath}/hero/delete/${pair.hero.id}">
+                        <form method="post" action="${pageContext.request.contextPath}/troop/${troop.id}/delete">
                             <button type="submit" class="btn btn-primary">Delete</button>
                         </form>
                     </td>

@@ -6,18 +6,18 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
-<my:pagetemplate title="Role Assignment">
+<my:pagetemplate title="Troop Assignment">
     <jsp:attribute name="body">
 
-        <form:form method="post" action="${pageContext.request.contextPath}/hero/${id}/role/add/"
-                   modelAttribute="role" cssClass="form-horizontal">
-            <form:label path="name" cssClass="col-sm-2 control-label">Assign Role</form:label>
+        <form:form method="post" action="${pageContext.request.contextPath}/hero/${id}/troop/add"
+                   modelAttribute="troop" cssClass="form-horizontal">
+            <form:label path="name" cssClass="col-sm-2 control-label">Join troop</form:label>
             <div class="col-sm-10">
                 <form:select id="name" path="name" name="name" class="form-control" required="required">
-                     <form:options items="${availableRoles}" itemValue="name" itemLabel="name"/>
+                     <form:options items="${availableTroops}" itemValue="name" itemLabel="name"/>
                 </form:select>
             </div>
-            <button class="btn btn-primary" type="submit">Assign role</button>
+            <button class="btn btn-primary" type="submit">Join troop</button>
         </form:form>
 
     </jsp:attribute>

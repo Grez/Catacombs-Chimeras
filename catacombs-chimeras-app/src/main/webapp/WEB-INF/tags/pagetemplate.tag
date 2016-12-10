@@ -37,6 +37,7 @@
                 <ul class="nav navbar-nav">
                     <li><my:a href="/hero/list"><p class="navbar-button">Heroes</p></my:a></li>
                     <li><my:a href="/troop/list"><p class="navbar-button">Troops</p></my:a></li>
+                    <li><my:a href="/role/list"><p class="navbar-button">Roles</p></my:a></li>
                     <!-- authenticated user info -->
                     <c:if test="${not empty authenticatedUser}">
                         <li><my:a href="/logout"><p class="navbar-button"><c:out value="${authenticatedUser.name}"/></p></my:a></li>

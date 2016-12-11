@@ -4,6 +4,7 @@ import cz.muni.fi.dto.RoleCreateDTO;
 import cz.muni.fi.dto.RoleDTO;
 import cz.muni.fi.facade.RoleFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,7 +20,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/role")
+@RequestMapping("/pa165/role")
 public class RoleActionBean {
 
     private final RoleFacade roleFacade;
@@ -34,7 +35,7 @@ public class RoleActionBean {
      *
      */
     @RequestMapping("/list")
-    public String listRoles(Model model) {
+    public String listRoles(final Model model) {
         final List<RoleDTO> roles = roleFacade.findAllRoles();
         model.addAttribute("roles", roles);
         return "role/list";
@@ -44,20 +45,25 @@ public class RoleActionBean {
      * delete role
      *
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "{id}/delete", method = RequestMethod.POST)
-    public String delete(@PathVariable long id, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable final long id,
+                         final UriComponentsBuilder uriBuilder,
+                         final RedirectAttributes redirectAttributes) {
         final String name = roleFacade.findRoleById(id).getName();
         roleFacade.removeRole(id);
         redirectAttributes.addFlashAttribute("alert_success", "Role \"" + name + "\" was deleted");
-        return "redirect:" + uriBuilder.path("/role/list").toUriString();
+        return "redirect:" + uriBuilder.path("/pa165/role/list").toUriString();
     }
 
     /**
      * create new role form
      *
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String newRole(Model model) {
+    public String newRole(final Model model) {
+
         model.addAttribute("roleCreate", new RoleCreateDTO());
         return "role/new";
     }
@@ -66,9 +72,14 @@ public class RoleActionBean {
      * create hero
      *
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String createRole(@Valid @ModelAttribute("roleCreate") RoleCreateDTO formBean, BindingResult bindingResult,
-                             Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+    public String createRole(@Valid @ModelAttribute("roleCreate") final RoleCreateDTO formBean,
+                             final BindingResult bindingResult,
+                             final Model model,
+                             final RedirectAttributes redirectAttributes,
+                             final UriComponentsBuilder uriBuilder) {
+
         //in case of validation error forward back to the the form
         if (bindingResult.hasErrors()) {
             for (FieldError fe : bindingResult.getFieldErrors()) {
@@ -85,6 +96,6 @@ public class RoleActionBean {
             redirectAttributes.addFlashAttribute("alert_danger", "Unable to create role \"" + formBean.getName() + "\", name taken?");
         }
 
-        return "redirect:" + uriBuilder.path("/role/list").toUriString();
+        return "redirect:" + uriBuilder.path("/pa165/role/list").toUriString();
     }
 }

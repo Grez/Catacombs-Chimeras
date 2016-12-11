@@ -8,7 +8,7 @@
 <my:pagetemplate title="New Hero">
     <jsp:attribute name="body">
 
-        <form:form method="post" action="${pageContext.request.contextPath}/hero/create"
+        <form:form method="post" action="${pageContext.request.contextPath}/pa165/hero/create"
                    modelAttribute="heroCreate" cssClass="form-horizontal">
             <div class="form-group ${name_error?'has-error':''}">
                 <form:label path="name" cssClass="col-sm-2 control-label">Name</form:label>

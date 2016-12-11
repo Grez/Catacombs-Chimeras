@@ -1,6 +1,4 @@
-package cz.muni.fi.web;
-
-import cz.muni.fi.dto.HeroDTO;
+package cz.muni.fi.dto;
 
 public class HeroTroopNamePair {
     private HeroDTO hero;

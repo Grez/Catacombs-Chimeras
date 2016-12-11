@@ -37,7 +37,7 @@ public class RoleServiceImpl implements RoleService {
         notNull(id);
         Role role = roleDao.findById(id);
         if(role == null){
-            throw new NotFoundException("Role with ID: " + id + " not found");
+            throw new NotFoundException("Role with ID \"" + id + "\" not found");
         }
         return role;
     }
@@ -47,7 +47,7 @@ public class RoleServiceImpl implements RoleService {
         notNull(name);
         Role role = roleDao.findByName(name);
         if(role == null){
-            throw new NotFoundException("Role with name: " + name + " not found");
+            throw new NotFoundException("Role with name \"" + name + "\" not found");
         }
         return role;
     }
@@ -75,7 +75,7 @@ public class RoleServiceImpl implements RoleService {
         notNull(id);
         Role role = roleDao.findById(id);
         if (role == null) {
-            throw new NotFoundException("Role with ID: " + id + " not found");
+            throw new NotFoundException("Role with ID \"" + id + "\" not found");
         }
         final Set<Hero> heroes = new HashSet<>(role.getHeroes());
         heroes.stream().forEach(hero -> { //remove all references from heroes
@@ -90,7 +90,7 @@ public class RoleServiceImpl implements RoleService {
         notNull(id);
         final Role role = roleDao.findById(id);
         if (role == null) {
-            throw new NotFoundException("Role with ID: " + id + " not found");
+            throw new NotFoundException("Role with ID \"" + id + "\" not found");
         }
         return new ArrayList<>(role.getHeroes());
     }

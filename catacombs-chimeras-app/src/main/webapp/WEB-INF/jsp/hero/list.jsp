@@ -8,7 +8,7 @@
 <my:pagetemplate title="Heroes">
     <jsp:attribute name="body">
 
-        <my:a href="/hero/new" class="btn btn-primary">
+        <my:a href="/pa165/hero/new" class="btn btn-primary">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             New hero
         </my:a>
@@ -33,10 +33,10 @@
                         <td><c:out value="${pair.hero.experience}" /></td>
                         <td><c:out value="${pair.troopName}" /></td>
                         <td>
-                            <my:a href="/hero/details/${pair.hero.id}" class="btn btn-primary">Details</my:a>
+                            <my:a href="/pa165/hero/details/${pair.hero.id}" class="btn btn-primary">Details</my:a>
                         </td>
                         <td>
-                            <form method="post" action="${pageContext.request.contextPath}/hero/delete/${pair.hero.id}">
+                            <form method="post" action="${pageContext.request.contextPath}/pa165/hero/delete/${pair.hero.id}">
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                         </td>

@@ -18,6 +18,7 @@ public class TroopWealthDTO {
     /**
      * List of troops with its money amount per hero in the troop,
      * The list is ordered by the amount of money per hero.
+     * ordered from lowest money per hero to highest
      * @return ordered list of TroopWealthItemDTO
      */
     public List<TroopWealthItemDTO> getTroopWealthList() {

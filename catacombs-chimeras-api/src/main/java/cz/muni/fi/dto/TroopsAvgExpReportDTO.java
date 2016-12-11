@@ -20,7 +20,7 @@ public class TroopsAvgExpReportDTO {
     }
 
     /**
-     * ordered list of report items
+     * ordered list of report items, order from lowest to highest average
      *
      * @return ordered list of report items ordered based on average experience level of heroes in troop
      */

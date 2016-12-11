@@ -31,7 +31,7 @@
                         <td>${troop.id}</td>
                         <td><c:out value="${troop.name}"/></td>
                         <td><c:out value="${troop.mission}"/></td>
-                        <td><c:out value="${troop.amoountOfMoney}"/></td>
+                        <td><c:out value="${troop.amountOfMoney}"/></td>
                         <td>
                             <my:a href="/troop/${troop.id}/details" class="btn btn-primary">Details</my:a>
                         </td>

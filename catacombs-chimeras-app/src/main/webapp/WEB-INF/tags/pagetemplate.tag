@@ -16,7 +16,9 @@
     <!-- bootstrap loaded from content delivery network -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"  crossorigin="anonymous">
-
+    <style>
+        .table tbody tr td { vertical-align: middle; }
+    </style>
     <jsp:invoke fragment="head"/>
 </head>
 <body>

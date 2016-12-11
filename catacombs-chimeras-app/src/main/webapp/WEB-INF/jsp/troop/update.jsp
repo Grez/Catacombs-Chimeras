@@ -5,7 +5,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<my:pagetemplate title="Update troop">
+<my:pagetemplate title="Update Troop">
     <jsp:attribute name="body">
 
         <form:form method="post" action="${pageContext.request.contextPath}/troop/update/${troopId}"

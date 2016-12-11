@@ -17,52 +17,56 @@
 
             <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
                 <form method="post" action="${pageContext.request.contextPath}/troop/${troop.id}/delete">
-                    <button type="submit" class="btn btn-primary">Delete</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </div>
         </div>
 
+        <h2>Details</h2>
         <table class="table">
-            <thead>
-            <tr>
-                <th>id</th>
-                <th>name</th>
-                <th>mission</th>
-                <th>money</th>
-            </tr>
-            </thead>
             <tbody>
-            <tr>
-                <td>${troop.id}</td>
-                <td><c:out value="${troop.name}"/></td>
-                <td><c:out value="${troop.mission}"/></td>
-                <td><c:out value="${troop.amountOfMoney}"/></td>
-            </tr>
+                <tr>
+                    <th>Id</th>
+                    <td>${troop.id}</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td><c:out value="${troop.name}"/></td>
+                </tr>
+                <tr>
+                    <th>Mission</th>
+                    <td><c:out value="${troop.mission}"/></td>
+                </tr>
+                <tr>
+                    <th>Money</th>
+                    <td><c:out value="${troop.amountOfMoney}"/></td>
+                </tr>
+                <tr>
             </tbody>
         </table>
 
         <h2>Heroes</h2>
-        <table border="1" cellpadding="5" width="300" class="table">
+        <table class="table table-striped">
             <thead>
-            <tr>
-                <th>id</th>
-                <th>name</th>
-                <th>experience</th>
-            </tr>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Experience</th>
+                </tr>
             </thead>
             <tbody>
-            <c:forEach items="${troopHeroes}" var="hero">
-                <tr>
-                    <td>${hero.id}</td>
-                    <td>${hero.name}</td>
-                    <td>${hero.experience}</td>
-                    <td>
-                        <form method="post" action="${pageContext.request.contextPath}/troop/${troop.id}/hero/remove/${hero.id}">
-                            <button type="submit" class="btn btn-primary">Remove</button>
-                        </form>
-                    </td>
-                </tr>
-            </c:forEach>
+                <c:forEach items="${troopHeroes}" var="hero">
+                    <tr>
+                        <td>${hero.id}</td>
+                        <td><c:out value="${hero.name}" /></td>
+                        <td><c:out value="${hero.experience}" /></td>
+                        <td>
+                            <form method="post" action="${pageContext.request.contextPath}/troop/${troop.id}/hero/remove/${hero.id}">
+                                <button type="submit" class="btn btn-danger">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
             </tbody>
         </table>
 

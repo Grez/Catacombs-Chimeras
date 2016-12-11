@@ -29,9 +29,9 @@
                 <c:forEach items="${troops}" var="troop">
                     <tr>
                         <td>${troop.id}</td>
-                        <td>${troop.name}</td>
-                        <td>${troop.mission}</td>
-                        <td>${troop.amountOfMoney}</td>
+                        <td><c:out value="${troop.name}"/></td>
+                        <td><c:out value="${troop.mission}"/></td>
+                        <td><c:out value="${troop.amoountOfMoney}"/></td>
                         <td>
                             <my:a href="/troop/${troop.id}/details" class="btn btn-primary">Details</my:a>
                         </td>

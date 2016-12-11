@@ -42,15 +42,15 @@
             </tr>
             <tr>
                 <th>Name</th>
-                <td>${hero.name}</td>
+                <td><c:out value="${hero.name}" /></td>
             </tr>
             <tr>
                 <th>Experience</th>
-                <td>${hero.experience}</td>
+                <td><c:out value="${hero.experience}" /></td>
             </tr>
             <tr>
                 <th>Troop</th>
-                <td>${troopName}</td>
+                <td><c:out value="${troopName}" /></td>
             </tr>
         </table>
 
@@ -73,8 +73,8 @@
                 <c:forEach items="${roles}" var="role">
                     <tr>
                         <td>${role.id}</td>
-                        <td>${role.name}</td>
-                        <td>${role.description}</td>
+                        <td><c:out value="${role.name}" /></td>
+                        <td><c:out value="${role.description}" /></td>
                         <td>
                             <form method="post" action="${pageContext.request.contextPath}/hero/${hero.id}/role/remove/${role.id}">
                                 <button type="submit" class="btn btn-danger">Remove</button>

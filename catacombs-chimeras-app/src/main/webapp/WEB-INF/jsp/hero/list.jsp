@@ -29,9 +29,9 @@
                 <c:forEach items="${heroes}" var="pair">
                     <tr>
                         <td>${pair.hero.id}</td>
-                        <td>${pair.hero.name}</td>
-                        <td>${pair.hero.experience}</td>
-                        <td>${pair.troopName}</td>
+                        <td><c:out value="${pair.hero.name}" /></td>
+                        <td><c:out value="${pair.hero.experience}" /></td>
+                        <td><c:out value="${pair.troopName}" /></td>
                         <td>
                             <my:a href="/hero/details/${pair.hero.id}" class="btn btn-primary">Details</my:a>
                         </td>

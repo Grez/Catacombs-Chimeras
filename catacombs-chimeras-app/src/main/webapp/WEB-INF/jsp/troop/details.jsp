@@ -58,8 +58,8 @@
                 <c:forEach items="${troopHeroes}" var="hero">
                     <tr>
                         <td>${hero.id}</td>
-                        <td>${hero.name}</td>
-                        <td>${hero.experience}</td>
+                        <td><c:out value="${hero.name}" /></td>
+                        <td><c:out value="${hero.experience}" /></td>
                         <td>
                             <form method="post" action="${pageContext.request.contextPath}/troop/${troop.id}/hero/remove/${hero.id}">
                                 <button type="submit" class="btn btn-danger">Remove</button>

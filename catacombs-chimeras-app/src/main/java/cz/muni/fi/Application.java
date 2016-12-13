@@ -41,9 +41,9 @@ public class Application extends SpringBootServletInitializer {
             final HeroDTO joker = heroFacade.createHero(new HeroCreateDTO("Joker", 80L));
             final HeroDTO sinestro = heroFacade.createHero(new HeroCreateDTO("Sinestro", 700L));
 
-            final TroopDTO justiceLeague = troopFacade.createTroop(new TroopCreateDTO("Justice League", "Protect world!", 8000000000L));
+            final TroopDTO justiceLeague = troopFacade.createTroop(new TroopCreateDTO("Justice League", "Protect world!", 1000000L));
             final TroopDTO injusticeLeague = troopFacade.createTroop(new TroopCreateDTO("Injustice League", "Rule the world!", 500000L));
-            final TroopDTO avengers = troopFacade.createTroop(new TroopCreateDTO("Avengers", "Be cool!", 9000000000L));
+            final TroopDTO avengers = troopFacade.createTroop(new TroopCreateDTO("Avengers", "Be cool!", 2000000L));
 
             final RoleDTO kryptonian = roleFacade.createRole(new RoleCreateDTO("Kryptonian alien", "powered by sun, weakened by Kryptonite"));
             final RoleDTO alien = roleFacade.createRole(new RoleCreateDTO("Alien", "being not born on Earth"));
@@ -62,12 +62,13 @@ public class Application extends SpringBootServletInitializer {
             heroFacade.addHeroRole(batman.getId(), philanthropist.getId());
             heroFacade.addHeroRole(batman.getId(), playboy.getId());
             heroFacade.addHeroRole(batman.getId(), pacifist.getId());
+            heroFacade.addHeroRole(batman.getId(), human.getId());
             troopFacade.addTroopHero(justiceLeague.getId(), batman.getId());
-
 
             heroFacade.addHeroRole(ironman.getId(), billionaire.getId());
             heroFacade.addHeroRole(ironman.getId(), philanthropist.getId());
             heroFacade.addHeroRole(ironman.getId(), playboy.getId());
+            heroFacade.addHeroRole(ironman.getId(), human.getId());
             troopFacade.addTroopHero(avengers.getId(), ironman.getId());
 
             heroFacade.addHeroRole(captainAmerica.getId(), human.getId());

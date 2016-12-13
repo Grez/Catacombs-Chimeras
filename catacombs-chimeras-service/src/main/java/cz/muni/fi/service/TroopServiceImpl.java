@@ -45,7 +45,7 @@ public class TroopServiceImpl implements TroopService {
         notNull(id);
         Troop troop = troopDao.findById(id);
         if (troop == null) {
-            throw new NotFoundException("Troop with ID " + id + " not found");
+            throw new NotFoundException("Troop with ID \"" + id + "\" not found");
         }
         return troop;
     }
@@ -55,7 +55,7 @@ public class TroopServiceImpl implements TroopService {
         notEmpty(name);
         Troop troop = troopDao.findByName(name);
         if (troop == null) {
-            throw new NotFoundException("Troop with name " + name + " not found");
+            throw new NotFoundException("Troop with name \"" + name + "\" not found");
         }
         return troop;
     }
@@ -83,7 +83,7 @@ public class TroopServiceImpl implements TroopService {
         notNull(id);
         Troop troop = troopDao.findById(id);
         if (troop == null) {
-            throw new NotFoundException("Troop with ID " + id + " not found");
+            throw new NotFoundException("Troop with ID \"" + id + "\" not found");
         }
         Set<Hero> heroes = new HashSet<>(troop.getHeroes());
         heroes.stream().forEach(hero -> { //remove all references from heroes
@@ -100,12 +100,12 @@ public class TroopServiceImpl implements TroopService {
 
         final Troop troop = findTroopById(troopId);
         if (troop == null) {
-            throw new NotFoundException("Troop with ID " + troopId + " not found");
+            throw new NotFoundException("Troop with ID \"" + troopId + "\" not found");
         }
 
         final Hero hero = heroDao.findById(heroId);
         if (hero == null) {
-            throw new NotFoundException("Hero with ID " + heroId + " not found");
+            throw new NotFoundException("Hero with ID \"" + heroId + "\" not found");
         }
 
         troop.addHero(hero);
@@ -118,7 +118,7 @@ public class TroopServiceImpl implements TroopService {
         notNull(id);
         final Troop troop = findTroopById(id);
         if (troop == null) {
-            throw new NotFoundException("Troop with ID " + id + " not found");
+            throw new NotFoundException("Troop with ID \"" + id + "\" not found");
         }
         return new ArrayList<>(troop.getHeroes());
     }

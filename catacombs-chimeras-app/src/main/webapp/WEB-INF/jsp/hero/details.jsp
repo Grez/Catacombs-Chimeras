@@ -10,25 +10,25 @@
 
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
-                <form method="get" action="${pageContext.request.contextPath}/hero/update/new/${hero.id}">
+                <form method="get" action="${pageContext.request.contextPath}/pa165/hero/update/new/${hero.id}">
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>
             </div>
 
             <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
-                <form method="post" action="${pageContext.request.contextPath}/hero/delete/${hero.id}">
+                <form method="post" action="${pageContext.request.contextPath}/pa165/hero/delete/${hero.id}">
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </div>
 
             <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
-                <form method="post" action="${pageContext.request.contextPath}/hero/${hero.id}/troop/remove/">
+                <form method="post" action="${pageContext.request.contextPath}/pa165/hero/${hero.id}/troop/remove/">
                     <button type="submit" class="btn btn-primary">Leave troop</button>
                 </form>
             </div>
 
             <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
-                <form method="get" action="${pageContext.request.contextPath}/hero/${hero.id}/troop/">
+                <form method="get" action="${pageContext.request.contextPath}/pa165/hero/${hero.id}/troop/">
                     <button type="submit" class="btn btn-primary">Join troop</button>
                 </form>
             </div>
@@ -55,7 +55,7 @@
         </table>
 
         <h2>Roles</h2>
-        <my:a href="/hero/${hero.id}/role" class="btn btn-primary">
+        <my:a href="/pa165/hero/${hero.id}/role" class="btn btn-primary">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             Assign role
         </my:a>
@@ -76,7 +76,7 @@
                         <td><c:out value="${role.name}" /></td>
                         <td><c:out value="${role.description}" /></td>
                         <td>
-                            <form method="post" action="${pageContext.request.contextPath}/hero/${hero.id}/role/remove/${role.id}">
+                            <form method="post" action="${pageContext.request.contextPath}/pa165/hero/${hero.id}/role/remove/${role.id}">
                                 <button type="submit" class="btn btn-danger">Remove</button>
                             </form>
                         </td>

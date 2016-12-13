@@ -43,7 +43,7 @@ public class HeroServiceImpl implements HeroService {
         notNull(id);
         Hero hero = heroDao.findById(id);
         if (hero == null) {
-            throw new NotFoundException("Hero with ID: " + id + " not found");
+            throw new NotFoundException("Hero with ID \"" + id + "\" not found");
         }
         return hero;
     }
@@ -53,7 +53,7 @@ public class HeroServiceImpl implements HeroService {
         notEmpty(name);
         Hero hero = heroDao.findByName(name);
         if (hero == null) {
-            throw new NotFoundException("Hero with name: " + name + " not found");
+            throw new NotFoundException("Hero with name \"" + name + "\" not found");
         }
         return hero;
     }
@@ -81,7 +81,7 @@ public class HeroServiceImpl implements HeroService {
         notNull(id);
         Hero hero = heroDao.findById(id);
         if (hero == null) {
-            throw new NotFoundException("Hero with ID: " + id + " not found");
+            throw new NotFoundException("Hero with ID \"" + id + "\" not found");
         }
         if (hero.getTroop() != null) { //remove reference from troop
             final Troop troop = hero.getTroop();
@@ -102,11 +102,11 @@ public class HeroServiceImpl implements HeroService {
         notNull(roleId);
         final Hero hero = heroDao.findById(heroId);
         if (hero == null) {
-            throw new NotFoundException("Hero with ID: " + heroId + " not found");
+            throw new NotFoundException("Hero with ID \"" + heroId + "\" not found");
         }
         final Role role = roleDao.findById(roleId);
         if (role == null) {
-            throw new NotFoundException("Role with ID: " + roleId + " not found");
+            throw new NotFoundException("Role with ID \"" + roleId + "\" not found");
         }
         hero.addRole(role);
         heroDao.update(hero);
@@ -119,11 +119,11 @@ public class HeroServiceImpl implements HeroService {
         notNull(roleId);
         final Hero hero = heroDao.findById(heroId);
         if (hero == null) {
-            throw new NotFoundException("Hero with ID: " + heroId + " not found");
+            throw new NotFoundException("Hero with ID \"" + heroId + "\" not found");
         }
         final Role role = roleDao.findById(roleId);
         if (role == null) {
-            throw new NotFoundException("Role with ID: " + roleId + " not found");
+            throw new NotFoundException("Role with ID \"" + roleId + "\" not found");
         }
         hero.removeRole(role);
         heroDao.update(hero);
@@ -135,7 +135,7 @@ public class HeroServiceImpl implements HeroService {
         notNull(heroId);
         final Hero hero = heroDao.findById(heroId);
         if (hero == null) {
-            throw new NotFoundException("Hero with ID: " + heroId + " not found");
+            throw new NotFoundException("Hero with ID \"" + heroId + "\" not found");
         }
         return new ArrayList<>(hero.getRoles());
     }

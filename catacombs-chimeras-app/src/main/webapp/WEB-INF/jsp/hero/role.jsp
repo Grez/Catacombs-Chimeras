@@ -8,7 +8,7 @@
 <my:pagetemplate title="Role Assignment">
     <jsp:attribute name="body">
 
-        <form:form method="post" action="${pageContext.request.contextPath}/hero/${id}/role/add/"
+        <form:form method="post" action="${pageContext.request.contextPath}/pa165/hero/${id}/role/add/"
                    modelAttribute="role" cssClass="form-horizontal">
             <form:label path="name" cssClass="col-sm-2 control-label">Assign Role</form:label>
             <div class="col-sm-10">

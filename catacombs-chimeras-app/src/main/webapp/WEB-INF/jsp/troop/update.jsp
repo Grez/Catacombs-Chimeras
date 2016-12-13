@@ -8,7 +8,7 @@
 <my:pagetemplate title="Update Troop">
     <jsp:attribute name="body">
 
-        <form:form method="post" action="${pageContext.request.contextPath}/troop/update/${troopId}"
+        <form:form method="post" action="${pageContext.request.contextPath}/pa165/troop/update/${troopId}"
                    modelAttribute="troop" cssClass="form-horizontal">
             <div class="form-group ${name_error?'has-error':''}">
                 <form:label path="name" cssClass="col-sm-2 control-label">Name</form:label>
@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <div class="form-group ${experience_error?'has-error':''}">
+            <div class="form-group ${amountOfMoney_error?'has-error':''}">
                 <form:label path="amountOfMoney" cssClass="col-sm-2 control-label">Money</form:label>
                 <div class="col-sm-10">
                     <form:input path="amountOfMoney" cssClass="form-control"/>

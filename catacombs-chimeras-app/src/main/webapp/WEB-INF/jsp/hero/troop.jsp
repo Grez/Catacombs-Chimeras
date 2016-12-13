@@ -8,7 +8,7 @@
 <my:pagetemplate title="Troop Assignment">
     <jsp:attribute name="body">
 
-        <form:form method="post" action="${pageContext.request.contextPath}/hero/${id}/troop/add"
+        <form:form method="post" action="${pageContext.request.contextPath}/pa165/hero/${id}/troop/add"
                    modelAttribute="troop" cssClass="form-horizontal">
             <form:label path="name" cssClass="col-sm-2 control-label">Join troop</form:label>
             <div class="col-sm-10">

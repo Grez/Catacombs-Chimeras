@@ -37,13 +37,13 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><my:a href="/hero/list"><p class="navbar-button">Heroes</p></my:a></li>
-                    <li><my:a href="/troop/list"><p class="navbar-button">Troops</p></my:a></li>
-                    <li><my:a href="/role/list"><p class="navbar-button">Roles</p></my:a></li>
-                    <!-- authenticated user info -->
-                    <c:if test="${not empty authenticatedUser}">
-                        <li><my:a href="/logout"><p class="navbar-button"><c:out value="${authenticatedUser.name}"/></p></my:a></li>
-                    </c:if>
+                    <li><my:a href="/pa165/hero/list"><p class="navbar-button">Heroes</p></my:a></li>
+                    <li><my:a href="/pa165/troop/list"><p class="navbar-button">Troops</p></my:a></li>
+                    <li><my:a href="/pa165/role/list"><p class="navbar-button">Roles</p></my:a></li>
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><my:a href="/logout"><p class="navbar-button">Logout</p></my:a></li>
                 </ul>
 
             </div><!--/.nav-collapse -->

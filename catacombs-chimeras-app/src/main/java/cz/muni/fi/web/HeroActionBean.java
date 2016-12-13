@@ -9,6 +9,7 @@ import cz.muni.fi.dto.TroopDTO;
 import cz.muni.fi.facade.HeroFacade;
 import cz.muni.fi.facade.RoleFacade;
 import cz.muni.fi.facade.TroopFacade;
+import cz.muni.fi.dto.HeroTroopNamePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +27,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/hero")
+@RequestMapping("/pa165/hero")
 public class HeroActionBean {
 
     private final HeroFacade heroFacade;
@@ -45,7 +46,7 @@ public class HeroActionBean {
      * list heroes
      */
     @RequestMapping("/list")
-    public String listHeroes(Model model) {
+    public String listHeroes(final Model model) {
         final List<HeroDTO> allHeroes = heroFacade.findAllHeroes();
         List<HeroTroopNamePair> heroAndTroopNames = allHeroes.stream().map(e -> {
             Long troopId = e.getTroopId();
@@ -64,7 +65,7 @@ public class HeroActionBean {
      * create new hero form
      */
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String newHero(Model model) {
+    public String newHero(final Model model) {
         model.addAttribute("heroCreate", new HeroCreateDTO());
         return "hero/new";
     }
@@ -74,8 +75,11 @@ public class HeroActionBean {
      * create hero
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String createHero(@Valid @ModelAttribute("heroCreate") HeroCreateDTO formBean, BindingResult bindingResult,
-                             Model model, RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder) {
+    public String createHero(@Valid @ModelAttribute("heroCreate") final HeroCreateDTO formBean,
+                             final BindingResult bindingResult,
+                             final Model model,
+                             final RedirectAttributes redirectAttributes,
+                             final UriComponentsBuilder uriBuilder) {
         //in case of validation error forward back to the the form
         if (bindingResult.hasErrors()) {
             for (FieldError fe : bindingResult.getFieldErrors()) {
@@ -92,18 +96,20 @@ public class HeroActionBean {
             redirectAttributes.addFlashAttribute("alert_danger", "Unable to create hero \"" + formBean.getName() + "\", name taken?");
         }
 
-        return "redirect:" + uriBuilder.path("/hero/list").toUriString();
+        return "redirect:" + uriBuilder.path("/pa165/hero/list").toUriString();
     }
 
     /**
      * delete hero
      */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String delete(@PathVariable long id, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable final long id,
+                         final UriComponentsBuilder uriBuilder,
+                         final RedirectAttributes redirectAttributes) {
         final String name = heroFacade.findHeroById(id).getName();
         heroFacade.removeHero(id);
         redirectAttributes.addFlashAttribute("alert_success", "Hero \"" + name + "\" was deleted");
-        return "redirect:" + uriBuilder.path("/hero/list").toUriString();
+        return "redirect:" + uriBuilder.path("/pa165/hero/list").toUriString();
     }
 
 
@@ -111,7 +117,8 @@ public class HeroActionBean {
      * details of hero containing roles
      */
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
-    public String details(@PathVariable long id, Model model) {
+    public String details(@PathVariable final long id,
+                          final Model model) {
         final HeroDTO hero = heroFacade.findHeroById(id);
         if (hero.getTroopId() != null) {
             final TroopDTO troop = troopFacade.findTroopById(hero.getTroopId());
@@ -128,12 +135,14 @@ public class HeroActionBean {
      * remove role
      */
     @RequestMapping(value = "/{heroId}/role/remove/{roleId}", method = RequestMethod.POST)
-    public String removeRole(@PathVariable("heroId") long heroId, @PathVariable("roleId") long roleId,
-                             UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String removeRole(@PathVariable("heroId") final long heroId,
+                             @PathVariable("roleId") final long roleId,
+                             final UriComponentsBuilder uriBuilder,
+                             final RedirectAttributes redirectAttributes) {
         final String roleName = roleFacade.findRoleById(roleId).getName();
         heroFacade.removeHeroRole(heroId, roleId);
         redirectAttributes.addFlashAttribute("alert_success", "Hero no longer has role \"" + roleName + "\"");
-        return "redirect:" + uriBuilder.path("/hero/details/" + heroId).toUriString();
+        return "redirect:" + uriBuilder.path("/pa165/hero/details/" + heroId).toUriString();
     }
 
 
@@ -141,7 +150,8 @@ public class HeroActionBean {
      * form for role selection
      */
     @RequestMapping(value = "/{heroId}/role", method = RequestMethod.GET)
-    public String role(@PathVariable("heroId") long heroId, Model model) {
+    public String role(@PathVariable("heroId") final long heroId,
+                       final Model model) {
         model.addAttribute("id", heroId);
         model.addAttribute("role", new RoleCreateDTO());
         model.addAttribute("availableRoles", roleFacade.findAllRoles());
@@ -153,12 +163,14 @@ public class HeroActionBean {
      * assign role
      */
     @RequestMapping(value = "/{heroId}/role/add", method = RequestMethod.POST)
-    public String assignRole(@PathVariable("heroId") long heroId, @ModelAttribute("role") RoleCreateDTO role,
-                             UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String assignRole(@PathVariable("heroId") final long heroId,
+                             @ModelAttribute("role") final RoleCreateDTO role,
+                             final UriComponentsBuilder uriBuilder,
+                             final RedirectAttributes redirectAttributes) {
         Long roleId = roleFacade.findRoleByName(role.getName()).getId();
         heroFacade.addHeroRole(heroId, roleId);
         redirectAttributes.addFlashAttribute("alert_success", "Hero was given a new role \"" + role.getName() + "\"");
-        return "redirect:" + uriBuilder.path("/hero/details/" + heroId).toUriString();
+        return "redirect:" + uriBuilder.path("/pa165/hero/details/" + heroId).toUriString();
     }
 
     /**
@@ -168,23 +180,26 @@ public class HeroActionBean {
      * @return redirects to list of heroes after deleting hero
      */
     @RequestMapping(value = "/{id}/troop/remove", method = RequestMethod.POST)
-    public String remove(@PathVariable long id, UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String remove(@PathVariable final long id,
+                         final UriComponentsBuilder uriBuilder,
+                         final RedirectAttributes redirectAttributes) {
         final HeroDTO hero = heroFacade.findHeroById(id);
         if (hero.getTroopId() == null) {
             redirectAttributes.addFlashAttribute("alert_warning", "Hero \"" + hero.getName() + "\" is not in a troop");
-            return "redirect:" + uriBuilder.path("/hero/details/" + id).toUriString();
+            return "redirect:" + uriBuilder.path("/pa165/hero/details/" + id).toUriString();
         }
         hero.setTroopId(null);
         heroFacade.updateHero(hero);
         redirectAttributes.addFlashAttribute("alert_success", "Hero \"" + hero.getName() + "\" was removed from the troop");
-        return "redirect:" + uriBuilder.path("/hero/details/" + id).toUriString();
+        return "redirect:" + uriBuilder.path("/pa165/hero/details/" + id).toUriString();
     }
 
     /**
      * form for role selection
      */
     @RequestMapping(value = "/{heroId}/troop", method = RequestMethod.GET)
-    public String troop(@PathVariable("heroId") long heroId, Model model) {
+    public String troop(@PathVariable("heroId") final long heroId,
+                        final Model model) {
         model.addAttribute("id", heroId);
         model.addAttribute("troop", new TroopCreateDTO());
         model.addAttribute("availableTroops", troopFacade.findAllTroops());
@@ -195,19 +210,22 @@ public class HeroActionBean {
      * joinTroop role
      */
     @RequestMapping(value = "/{heroId}/troop/add", method = RequestMethod.POST)
-    public String joinTroop(@PathVariable("heroId") long heroId, @ModelAttribute("troop") TroopCreateDTO troop,
-                            UriComponentsBuilder uriBuilder, RedirectAttributes redirectAttributes) {
+    public String joinTroop(@PathVariable("heroId") final long heroId,
+                            @ModelAttribute("troop") final TroopCreateDTO troop,
+                            final UriComponentsBuilder uriBuilder,
+                            final RedirectAttributes redirectAttributes) {
         final Long troopId = troopFacade.findTroopByName(troop.getName()).getId();
         troopFacade.addTroopHero(troopId, heroId);
         redirectAttributes.addFlashAttribute("alert_success", "Hero joined troop \"" + troop.getName() + "\"");
-        return "redirect:" + uriBuilder.path("/hero/details/" + heroId).toUriString();
+        return "redirect:" + uriBuilder.path("/pa165/hero/details/" + heroId).toUriString();
     }
 
     /**
      * create update hero form
      */
     @RequestMapping(value = "/update/new/{heroId}", method = RequestMethod.GET)
-    public String updateHero(@PathVariable("heroId") long heroId, Model model) {
+    public String updateHero(@PathVariable("heroId") final long heroId,
+                             final Model model) {
         HeroDTO hero = heroFacade.findHeroById(heroId);
         HeroCreateDTO heroCreateDTO = new HeroCreateDTO(); // bypass that we dont have default constructor in HeroDTO
         heroCreateDTO.setExperience(hero.getExperience());
@@ -222,9 +240,12 @@ public class HeroActionBean {
      * update hero
      */
     @RequestMapping(value = "/update/{heroId}", method = RequestMethod.POST)
-    public String updateHero(@PathVariable("heroId") long heroId,  @Valid @ModelAttribute("hero") HeroCreateDTO formBean,
-                             BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes,
-                             UriComponentsBuilder uriBuilder) {
+    public String updateHero(@PathVariable("heroId") final long heroId,
+                             @Valid @ModelAttribute("hero") final HeroCreateDTO formBean,
+                             final BindingResult bindingResult,
+                             final Model model,
+                             final RedirectAttributes redirectAttributes,
+                             final UriComponentsBuilder uriBuilder) {
         //in case of validation error forward back to the the form
         if (bindingResult.hasErrors()) {
             for (FieldError fe : bindingResult.getFieldErrors()) {
@@ -241,6 +262,6 @@ public class HeroActionBean {
             redirectAttributes.addFlashAttribute("alert_danger", "Unable to update hero \"" + formBean.getName() + "\", name taken?");
         }
 
-        return "redirect:" + uriBuilder.path("/hero/list").toUriString();
+        return "redirect:" + uriBuilder.path("/pa165/hero/details/" + heroId).toUriString();
     }
 }

@@ -17,7 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("pa165/rest/heroes")
+@RequestMapping("/pa165/rest/heroes")
 public class HeroResource {
 
     private HeroFacade heroFacade;

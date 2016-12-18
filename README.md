@@ -36,7 +36,7 @@ after running the spring-boot app there should be available REST API for manipul
 ### List all heroes
 REQUEST METHOD: *GET*
 
-REQUEST URI: *pa165/rest/heroes*
+REQUEST URI: */pa165/rest/heroes*
 
 REQUEST BODY: *NONE*
 
@@ -45,7 +45,7 @@ RESPONSE BODY: *LIST OF HEROES*
 ### Get hero entity
 REQUEST METHOD: *GET*
 
-REQUEST URI: *pa165/rest/heroes/{id}*
+REQUEST URI: */pa165/rest/heroes/{id}*
 
 REQUEST BODY: *NONE*
 
@@ -53,9 +53,9 @@ RESPONSE BODY: *HERO ENTITY*
 
 ### Create hero entity
 
-REQUEST METHOD: *GET*
+REQUEST METHOD: *POST*
 
-REQUEST URI: *pa165/rest/heroes/{id}*
+REQUEST URI: */pa165/rest/heroes/{id}*
 
 REQUEST BODY: *HERO ENTITY*  (example ```{"name":"petr","experience":80}```)
 

@@ -2,6 +2,7 @@ package cz.muni.fi.rest;
 
 import cz.muni.fi.dto.HeroCreateDTO;
 import cz.muni.fi.dto.HeroDTO;
+import cz.muni.fi.exceptions.AlreadyExistsException;
 import cz.muni.fi.exceptions.NotFoundException;
 import cz.muni.fi.exceptions.NotFoundRestException;
 import cz.muni.fi.facade.HeroFacade;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.util.Collection;
 
 @RestController
@@ -33,7 +35,13 @@ public class HeroResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<HeroDTO> createHero(@RequestBody HeroCreateDTO hero) {
+    ResponseEntity<HeroDTO> createHero(@Valid @RequestBody HeroCreateDTO hero) {
+        try {
+            heroFacade.findHeroByName(hero.getName());
+            throw new AlreadyExistsException("Hero with name \"" + hero.getName() + "\" already exists");
+        } catch (NotFoundException ignored) {
+
+        }
         HeroDTO createdHero = heroFacade.createHero(hero);
         return ResponseEntity
                 .created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdHero.getId()).toUri())

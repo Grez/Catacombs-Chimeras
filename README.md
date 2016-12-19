@@ -55,7 +55,7 @@ RESPONSE BODY: *HERO ENTITY*
 
 REQUEST METHOD: *POST*
 
-REQUEST URI: */pa165/rest/heroes/{id}*
+REQUEST URI: */pa165/rest/heroes*
 
 REQUEST BODY: *HERO ENTITY*  (example ```{"name":"petr","experience":80}```)
 
